@@ -17,8 +17,14 @@ services:
       retries: 20
     networks: [app_net]
 
+  # `image:` is what the VM actually runs (docker compose pull uses only this — it never
+  # needs ./backend or a Dockerfile present). `build:` is only used on the dev/build
+  # machine to produce that same image with `docker compose build backend`. ARTIFACT_REGISTRY
+  # is defined once in .env and shared by both this file and the push commands, e.g.
+  # asia-southeast1-docker.pkg.dev/<PROJECT_ID>/booking-platform
   backend:
     build: ./backend
+    image: ${ARTIFACT_REGISTRY}/backend:latest
     restart: unless-stopped
     depends_on:
       mysql:
@@ -35,16 +41,12 @@ services:
       retries: 10
     networks: [app_net]
 
-  # Two extra replicas of the same backend image, load-balanced by nginx's
-  # backend_upstream block (nginx/conf.d/default.conf). Safe to add because JWT auth is
-  # stateless (no sticky sessions needed) and all concurrency safety (row locks against
-  # overselling) lives in MySQL transactions, not in-process state — so it holds no
-  # matter how many backend instances share the database. Plain `docker compose up
-  # --scale` doesn't work here because nginx's static `upstream` block needs each
-  # replica's hostname listed explicitly (see the note there for the dynamic-DNS
-  # alternative if replica count needs to flex at runtime).
+  # Second replica of the exact same image (see the comment on `backend` above for why
+  # there are two) — deliberately has NO `build:` section, since it's never anything other
+  # than a second copy of the image `backend` already built. `docker compose pull`/`up`
+  # resolve this from the registry directly; nothing here ever triggers a build.
   backend2:
-    build: ./backend
+    image: ${ARTIFACT_REGISTRY}/backend:latest
     restart: unless-stopped
     depends_on:
       mysql:
@@ -86,6 +88,7 @@ services:
 
   frontend:
     build: ./frontend
+    image: ${ARTIFACT_REGISTRY}/frontend:latest
     restart: unless-stopped
     networks: [app_net]
 
