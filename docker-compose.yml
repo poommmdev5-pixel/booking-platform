@@ -25,6 +25,10 @@ services:
   backend:
     build: ./backend
     image: ${ARTIFACT_REGISTRY}/backend:latest
+    # The VM is x86_64 (amd64); forces the correct target architecture regardless of
+    # what CPU the machine running `docker compose build` has (e.g. Apple Silicon Macs
+    # build arm64 by default, which silently produces an image the VM can't run at all).
+    platform: linux/amd64
     restart: unless-stopped
     depends_on:
       mysql:
@@ -47,6 +51,7 @@ services:
   # resolve this from the registry directly; nothing here ever triggers a build.
   backend2:
     image: ${ARTIFACT_REGISTRY}/backend:latest
+    platform: linux/amd64
     restart: unless-stopped
     depends_on:
       mysql:
@@ -89,6 +94,7 @@ services:
   frontend:
     build: ./frontend
     image: ${ARTIFACT_REGISTRY}/frontend:latest
+    platform: linux/amd64
     restart: unless-stopped
     networks: [app_net]
 
