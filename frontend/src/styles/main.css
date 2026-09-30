@@ -1,0 +1,279 @@
+:root {
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-light: #eef2ff;
+  --color-primary-dark: #3730a3;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-text-faint: #94a3b8;
+  --color-border: #e2e8f0;
+  --color-surface: #ffffff;
+  --color-bg: #f8fafc;
+  --color-success: #16a34a;
+  --color-success-bg: #dcfce7;
+  --color-danger: #dc2626;
+  --color-danger-bg: #fee2e2;
+  --color-warning: #d97706;
+  --color-warning-bg: #fef3c7;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 20px 44px rgba(15, 23, 42, 0.14);
+  --font-sans: 'Inter', 'Noto Sans Thai', 'Noto Sans SC', 'Noto Sans', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--color-primary); text-decoration: none; }
+
+h1, h2, h3, h4 { color: var(--color-text); font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
+h1 { font-size: 1.75rem; margin: 0 0 1.25rem; }
+h2 { font-size: 1.2rem; margin: 2rem 0 1rem; }
+h3 { font-size: 1rem; margin: 0 0 0.35rem; }
+
+p { margin: 0 0 0.75rem; }
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 0.925rem;
+  color: var(--color-text);
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+label {
+  display: block;
+  margin: 0.9rem 0 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+label input,
+label select,
+label textarea { margin-top: 0.35rem; }
+
+input, select, textarea {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+input:hover, select:hover, textarea:hover { border-color: #cbd5e1; }
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+input::placeholder, textarea::placeholder { color: var(--color-text-faint); }
+input[type='checkbox'] { width: auto; max-width: none; display: inline-block; margin: 0; accent-color: var(--color-primary); }
+/* Number/date/time fields hold short, fixed-format content — letting them fill a wide
+   form container the way text/email/select fields should would just look broken. */
+input[type='number'], input[type='date'], input[type='time'], input[type='month'] { max-width: 200px; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+.btn:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); box-shadow: var(--shadow-md); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; transform: none; }
+
+.btn-secondary {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  box-shadow: none;
+}
+.btn-secondary:hover { background: #f1f5f9; border-color: #cbd5e1; box-shadow: none; }
+
+.btn-danger { background: var(--color-danger); border-color: var(--color-danger); }
+.btn-danger:hover { background: #b91c1c; border-color: #b91c1c; }
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-primary);
+  box-shadow: none;
+  padding: 0.5rem 0.75rem;
+}
+.btn-ghost:hover { background: var(--color-primary-light); box-shadow: none; }
+
+.btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; border-radius: 7px; }
+
+/* Feedback */
+.error {
+  color: var(--color-danger);
+  background: var(--color-danger-bg);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.85rem;
+  margin: 0.75rem 0;
+}
+.ok {
+  color: var(--color-success);
+  background: var(--color-success-bg);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.85rem;
+  margin: 0.75rem 0;
+  display: inline-block;
+}
+
+/* Cards */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+thead th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  background: #f8fafc;
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+tbody td {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr { transition: background 0.1s ease; }
+tbody tr:hover { background: #f8fafc; }
+
+/* Keeps a table row a single, predictable height no matter how long a cell's text is:
+   the cell truncates with an ellipsis instead of wrapping and stretching the row. */
+.cell-truncate {
+  display: block;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .cell-truncate { max-width: 140px; }
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.status-pending { background: var(--color-warning-bg); color: #92400e; }
+.status-confirmed { background: var(--color-primary-light); color: var(--color-primary-dark); }
+.status-completed { background: var(--color-success-bg); color: #166534; }
+.status-cancelled { background: var(--color-danger-bg); color: #991b1b; }
+.status-no_show { background: #f1f5f9; color: var(--color-text-muted); }
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* Auth pages */
+.auth-page {
+  min-height: calc(100vh - 130px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+}
+.auth-card h1 { text-align: center; margin-bottom: 1.5rem; }
+.auth-card input, .auth-card select, .auth-card textarea { max-width: none; }
+.auth-card .btn { width: 100%; margin-top: 0.5rem; }
+.auth-card .switch { text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--color-text-muted); }
+
+/* Scrollbar polish */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }

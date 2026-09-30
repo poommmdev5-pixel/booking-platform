@@ -1,0 +1,23 @@
+/* Admin "Andaman Breeze" theme — reuses the exact same teal/gold brand tokens as
+   client-theme.css so the admin back office reads as the same product as the client
+   site, not a bolted-on generic dashboard. Scoped under .admin-shell (AdminLayout.vue's
+   root, and Login.vue's root, since /admin/login is a top-level route outside
+   AdminLayout) so it never leaks into the client-facing .client-shell, which keeps its
+   own copy of these same tokens independently. Because main.css's generic primitives
+   (.btn, .card, .status-badge, inputs, focus rings) are all var()-driven, redefining the
+   tokens below re-themes them automatically — no need to touch those rules directly. */
+.admin-shell {
+  --color-primary: #0f7a70;
+  --color-primary-hover: #0b5f58;
+  --color-primary-light: #e2f4f1;
+  --color-primary-dark: #0a4a45;
+
+  --color-accent: #d68a3c;
+  --color-accent-hover: #b8752f;
+  --color-accent-light: #fbf0dd;
+
+  --color-success: #15803d;
+  --color-success-bg: #e1f5e6;
+  --color-warning: #b45309;
+  --color-warning-bg: #fdf1d9;
+}
