@@ -239,12 +239,14 @@ function submitSearch() {
 h1.hero-title { color: #fff; margin: 0 0 1.1rem; font-size: clamp(2.1rem, 4.8vw, 3.4rem); line-height: 1.12; }
 .hero-sub { color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; max-width: 34rem; margin: 0 0 2.25rem; line-height: 1.75; }
 .hero-cta-row { display: flex; flex-wrap: wrap; gap: 0.85rem; }
-.hero-ghost-btn { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.4); color: #fff; }
+/* Solid white pill instead of a glass/ghost outline — easier to read at a glance against
+   the busy hero photo than a translucent border ever was. */
+.hero-ghost-btn { background: #fff; border: 1px solid #fff; color: var(--color-primary-dark); }
 @media (max-width: 640px) {
   .hero-content { padding: 2.5rem 1.5rem 3rem; }
   .hero-sub { margin-bottom: 1.75rem; }
 }
-.hero-ghost-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: #fff; color: #fff; box-shadow: none; }
+.hero-ghost-btn:hover { background: var(--color-primary-light); border-color: var(--color-primary-light); color: var(--color-primary-dark); box-shadow: none; }
 
 .search-float {
   position: relative; z-index: 2; margin: -3.5rem auto 3.5rem; padding: 1.1rem 1.25rem 1.25rem;

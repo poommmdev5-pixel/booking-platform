@@ -22,7 +22,7 @@ const STRIPE_APPEARANCE = {
   theme: 'stripe',
   variables: {
     colorPrimary: '#0e7c74',
-    colorBackground: '#f7f0de',
+    colorBackground: '#ffffff',
     colorText: '#2b2318',
     colorTextSecondary: '#6b6250',
     colorDanger: '#dc2626',
@@ -853,12 +853,13 @@ async function submit() {
             </div>
             <div class="calendar-frame">
               <MonthCalendar v-model:month="staySelectedMonth">
-                <template #day="{ date, day, isPast }">
+                <template #day="{ date, day, isPast, isToday }">
                   <button
                     type="button"
                     class="stay-cal-day"
                     :class="{
                       past: isPast,
+                      'is-today': isToday,
                       closed: stayDayInfo(date) && !stayDayInfo(date).isOpen,
                       unknown: !stayDayInfo(date),
                       'range-start': date === stayCheckIn,
@@ -879,12 +880,13 @@ async function submit() {
             <p class="picker-label">{{ $t('booking.selectDate') }}</p>
             <div class="calendar-frame">
               <MonthCalendar v-model:month="staySelectedMonth">
-                <template #day="{ date, day, isPast }">
+                <template #day="{ date, day, isPast, isToday }">
                   <button
                     type="button"
                     class="stay-cal-day"
                     :class="{
                       past: isPast,
+                      'is-today': isToday,
                       closed: stayDayInfo(date) && !stayDayInfo(date).isOpen,
                       unknown: !stayDayInfo(date),
                       'range-start': date === staySessionDate,
@@ -1492,7 +1494,10 @@ async function submit() {
 }
 .stay-range-pill svg { width: 14px; height: 14px; fill: var(--color-primary); flex-shrink: 0; }
 .stay-range-pending { color: var(--color-text-faint); font-weight: 600; }
-.calendar-frame { background: var(--color-bg); border-radius: var(--radius-md); padding: 1.1rem 0.9rem; margin-bottom: 0.5rem; }
+.calendar-frame {
+  background: var(--color-bg); border: 1px solid var(--color-border-soft); border-radius: var(--radius-md);
+  padding: 1.1rem 0.9rem; margin-bottom: 0.5rem;
+}
 
 .stay-cal-day {
   width: 100%; height: 100%; border: 1.5px solid transparent; border-radius: var(--radius-sm); background: var(--color-surface);
@@ -1503,6 +1508,11 @@ async function submit() {
 .stay-cal-day.past { opacity: 0.3; }
 .stay-cal-day.closed, .stay-cal-day.unknown { color: var(--color-text-faint); background: transparent; cursor: not-allowed; font-weight: 500; }
 .stay-cal-day:disabled { cursor: not-allowed; }
+/* A quiet ring marks "today" as a reference point while browsing future dates — it steps
+   aside once a day is actually selected so the two states never compete. */
+.stay-cal-day.is-today:not(.range-start):not(.range-end) {
+  box-shadow: inset 0 0 0 1.5px var(--color-primary); color: var(--color-primary-dark);
+}
 .stay-cal-day.range-start, .stay-cal-day.range-end {
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); color: #fff; border-color: var(--color-primary);
   box-shadow: var(--shadow-glow);

@@ -35,9 +35,12 @@
   /* Hairlines — warm sand-tinted on the bright surfaces instead of a cool grey. */
   --color-border: #e8ddc2;
   --color-border-soft: #f1e9d4;
-  --color-surface: #fffefb;
-  --color-surface-2: #f7f0de;
-  --color-bg: #fbf3e0;
+  /* Surfaces kept close to true white now (cards, inputs, recessed panels) — the warm sand
+     lives in the page background and the hairline borders below, not in every box's fill,
+     so stacked frames/inputs read as clean and airy rather than muddy. */
+  --color-surface: #ffffff;
+  --color-surface-2: #f6f5f0;
+  --color-bg: #f0efe6;
   --color-cream: #f7f0de;
 
   --color-success: #15803d;
@@ -63,15 +66,16 @@
 
   position: relative;
   isolation: isolate;
-  /* A barely-there gradient between near-white and warm sand — depth without the dark
-     fade the earlier version needed, since there's no "settling to black" here. Still a
-     fixed-height, non-repeating layer over a solid base in its own end color, same
-     technique as before (background-attachment: fixed would size to the viewport and then
-     tile on repeat past one screen's height — this sidesteps that entirely). */
-  background-color: #f5ecd5;
-  background-image: linear-gradient(180deg, #fffdf7 0%, #fbf3e0 55%, #f5ecd5 100%);
+  /* Sand at the top easing into a bright emerald sea-blue lower down — a morning beach
+     looking out toward the water, rather than a flat tint. Still a fixed-height,
+     non-repeating layer over a solid base in its own end color (background-attachment:
+     fixed would size to the viewport and then tile on repeat past one screen's height —
+     this sidesteps that entirely); background-color matches the gradient's last stop so a
+     page longer than the sized image continues in solid sea-blue with no seam. */
+  background-color: #a3e8da;
+  background-image: linear-gradient(180deg, #fffdf7 0%, #fbf3e0 22%, #e4f3ea 42%, #c3ecdd 65%, #a3e8da 100%);
   background-repeat: no-repeat;
-  background-size: 100% 1400px;
+  background-size: 100% 1900px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

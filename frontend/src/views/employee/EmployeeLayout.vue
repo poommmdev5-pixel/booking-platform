@@ -94,4 +94,12 @@ async function onLogout() {
 
 .employee-main { padding: 1.5rem 1.25rem 3rem; }
 .employee-container { max-width: 640px; margin: 0 auto; }
+
+/* Desktop gets real breathing room instead of a phone-width column stranded in the middle
+   of the screen — Profile.vue's own .settings-page (900px) and Schedule's cards were
+   already designed for more width than the 640px shell ever let them use. */
+@media (min-width: 900px) {
+  .header-inner, .tabs, .employee-container { max-width: 1080px; }
+  .employee-main { padding: 2rem 2rem 3.5rem; }
+}
 </style>
