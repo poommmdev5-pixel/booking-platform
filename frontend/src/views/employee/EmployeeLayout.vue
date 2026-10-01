@@ -63,6 +63,15 @@ async function onLogout() {
 .brand-mark svg { width: 16px; height: 16px; fill: #fff; }
 .brand-text { font-size: 0.92rem; white-space: nowrap; }
 .header-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+
+/* Brand text can't shrink (nowrap) and header-actions won't either (flex-shrink: 0), so on
+   a narrow phone the two together don't fit and the logout button gets clipped off-screen
+   with nothing to wrap to. Let the row wrap and give header-actions its own full-width,
+   right-aligned line instead of leaving it fighting the brand for space. */
+@media (max-width: 420px) {
+  .header-inner { flex-wrap: wrap; row-gap: 0.6rem; }
+  .header-actions { width: 100%; justify-content: flex-end; }
+}
 .logout-btn {
   background: transparent; border: 1px solid #374151; color: #d1d5db;
   padding: 0.4rem 0.8rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
