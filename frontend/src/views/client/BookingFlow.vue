@@ -23,7 +23,7 @@ const STRIPE_APPEARANCE = {
   theme: 'night',
   variables: {
     colorPrimary: '#c7a04a',
-    colorBackground: '#41331f',
+    colorBackground: '#62502f',
     colorText: '#f1e9d8',
     colorTextSecondary: '#b3a788',
     colorDanger: '#d99a8a',

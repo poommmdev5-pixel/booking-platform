@@ -13,10 +13,10 @@
      reads as low-contrast "washed out" when used as small body-sized text/links on a white
      admin background, so primary here is a richer bronze instead, with the bright gold kept
      for the accent role (badges, highlight chips) where it sits on a tinted background. */
-  --color-primary: #9c7a2e;
-  --color-primary-hover: #7d6225;
+  --color-primary: #ad8a3e;
+  --color-primary-hover: #8f7128;
   --color-primary-light: #faf3e2;
-  --color-primary-dark: #5c4a1f;
+  --color-primary-dark: #6b5726;
 
   --color-accent: #c7a04a;
   --color-accent-hover: #ad8a3e;

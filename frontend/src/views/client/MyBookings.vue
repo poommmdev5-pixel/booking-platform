@@ -194,7 +194,7 @@ onMounted(load);
 .empty-state { display: flex; flex-direction: column; align-items: center; gap: 1.1rem; padding: 3.5rem 1rem; }
 
 .modal-backdrop {
-  position: fixed; inset: 0; background: rgba(13, 9, 5, 0.6); backdrop-filter: blur(2px);
+  position: fixed; inset: 0; background: rgba(28, 20, 12, 0.6); backdrop-filter: blur(2px);
   display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 1.5rem;
 }
 .modal-card { width: 100%; max-width: 420px; padding: 1.75rem; }

@@ -58,7 +58,7 @@ const TYPE_ICON = {
 .product-card:hover .thumb img { transform: scale(1.06); }
 .thumb-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, var(--color-primary-light), var(--color-cream)); }
 .thumb-tag {
-  position: absolute; left: 0.7rem; bottom: 0.7rem; background: rgba(21, 16, 10, 0.78); color: var(--color-text);
+  position: absolute; left: 0.7rem; bottom: 0.7rem; background: rgba(43, 32, 21, 0.78); color: var(--color-text);
   border: 1px solid var(--color-border); font-size: 0.72rem; font-weight: 700; padding: 0.35rem 0.7rem; border-radius: 999px; backdrop-filter: blur(4px);
 }
 .thumb-type-badge { display: none; }

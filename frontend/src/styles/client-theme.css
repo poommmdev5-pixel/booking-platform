@@ -21,21 +21,21 @@
 
   /* Text — brightened warm ivory/champagne (never pure white — a warm-tinted off-white
      reads as intentional, pure white on a dark ground reads as a default no one set). */
-  --color-text: #f8f3e6;
-  --color-text-muted: #cdc3a4;
-  --color-text-faint: #988d6e;
+  --color-text: #faf7ec;
+  --color-text-muted: #ded5b8;
+  --color-text-faint: #ac9f7e;
 
   /* Hairlines — gold-tinted on dark surfaces instead of the grey borders a light theme
-     would use; .3 for a visible accent line, .1 for a near-invisible structural seam. */
-  --color-border: rgba(199, 160, 74, 0.3);
-  --color-border-soft: rgba(248, 243, 230, 0.1);
+     would use; .35 for a visible accent line, .14 for a near-invisible structural seam. */
+  --color-border: rgba(199, 160, 74, 0.35);
+  --color-border-soft: rgba(248, 243, 230, 0.14);
   /* Surfaces sit visibly lighter than the page background (not just a shade darker) so
      cards read as "lifted" panels rather than a slightly-different patch of the same void —
      this is the main lever for "feels airier," short of giving up the dark theme itself. */
-  --color-surface: #332919;
-  --color-surface-2: #41331f;
-  --color-bg: #15100a;
-  --color-cream: #41331f;
+  --color-surface: #4f4026;
+  --color-surface-2: #62502f;
+  --color-bg: #2b2015;
+  --color-cream: #62502f;
 
   --color-success: #8fae84;
   --color-success-bg: rgba(143, 174, 132, 0.14);
@@ -65,8 +65,8 @@
      end color. (background-attachment: fixed would size the gradient to the viewport and
      then, since the default is background-repeat: repeat, visibly tile it again every
      viewport-height down any page taller than one screen — this avoids that entirely.) */
-  background-color: #0a0705;
-  background-image: linear-gradient(180deg, #4a3a22 0%, #2e2416 28%, #15100a 60%, transparent 100%);
+  background-color: #1a130c;
+  background-image: linear-gradient(180deg, #6b5531 0%, #473823 28%, #2b2015 60%, transparent 100%);
   background-repeat: no-repeat;
   background-size: 100% 1400px;
   min-height: 100vh;

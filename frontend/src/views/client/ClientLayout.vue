@@ -61,7 +61,7 @@ async function onLogout() {
               <defs>
                 <linearGradient id="brandGrad" x1="0" y1="0" x2="32" y2="32">
                   <stop offset="0" stop-color="#211c14" />
-                  <stop offset="1" stop-color="#15100a" />
+                  <stop offset="1" stop-color="#2b2015" />
                 </linearGradient>
               </defs>
             </svg>
@@ -192,7 +192,7 @@ async function onLogout() {
 
 <style scoped>
 .site-header {
-  background: rgba(21, 16, 10, 0.72);
+  background: rgba(43, 32, 21, 0.72);
   backdrop-filter: blur(14px) saturate(1.1);
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
   border-bottom: 1px solid var(--color-border-soft);
@@ -201,7 +201,7 @@ async function onLogout() {
   z-index: 20;
   transition: background 0.25s ease, box-shadow 0.25s ease, border-radius 0.25s ease;
 }
-.site-header.scrolled { background: rgba(21, 16, 10, 0.92); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35); }
+.site-header.scrolled { background: rgba(43, 32, 21, 0.92); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35); }
 .header-accent-bar { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--color-primary) 50%, transparent 100%); opacity: 0.6; }
 
 /* Floating pill navbar — wide desktop only. Between the hamburger breakpoint (781px) and
@@ -266,7 +266,7 @@ nav { display: flex; align-items: center; gap: 0.4rem; }
    pick up the theme's CSS custom properties (they don't cascade to a teleported sibling
    of the app root the way they do to normal descendants). */
 .drawer-backdrop {
-  position: fixed; inset: 0; background: rgba(13, 9, 5, 0.6); backdrop-filter: blur(2px);
+  position: fixed; inset: 0; background: rgba(28, 20, 12, 0.6); backdrop-filter: blur(2px);
   z-index: 90;
 }
 .mobile-drawer {

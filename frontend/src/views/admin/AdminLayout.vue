@@ -132,7 +132,7 @@ async function onLogout() {
 .shell { display: flex; min-height: 100vh; }
 aside {
   width: 232px;
-  background: #1c160c;
+  background: #332818;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -154,19 +154,19 @@ aside {
 .brand-mark {
   display: inline-flex; align-items: center; justify-content: center;
   width: 30px; height: 30px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--color-accent, #c7a04a), var(--color-primary, #9c7a2e));
+  background: linear-gradient(135deg, var(--color-accent, #c7a04a), var(--color-primary, #ad8a3e));
   font-weight: 800; font-size: 0.95rem;
 }
 nav { display: flex; flex-direction: column; gap: 0.25rem; flex: 1; }
 nav a {
   display: flex; align-items: center; gap: 0.65rem;
-  color: #b0a68c; padding: 0.55rem 0.75rem; border-radius: 8px;
+  color: #c7bc9e; padding: 0.55rem 0.75rem; border-radius: 8px;
   font-size: 0.875rem; font-weight: 500;
   transition: background 0.12s ease, color 0.12s ease;
 }
 nav a svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
-nav a:hover { background: #2b2316; color: #fff; }
-nav a.router-link-active { background: var(--color-primary, #9c7a2e); color: #fff; }
+nav a:hover { background: #473a22; color: #fff; }
+nav a.router-link-active { background: var(--color-primary, #ad8a3e); color: #fff; }
 .nav-link-with-badge { position: relative; }
 .nav-badge {
   margin-left: auto; flex-shrink: 0; min-width: 19px; height: 19px; padding: 0 5px; border-radius: 999px;
@@ -175,39 +175,39 @@ nav a.router-link-active { background: var(--color-primary, #9c7a2e); color: #ff
 .nav-group-toggle {
   display: flex; align-items: center; gap: 0.65rem; width: 100%;
   background: transparent; border: none; cursor: pointer;
-  color: #b0a68c; padding: 0.55rem 0.75rem; border-radius: 8px;
+  color: #c7bc9e; padding: 0.55rem 0.75rem; border-radius: 8px;
   font-size: 0.875rem; font-weight: 500; font-family: inherit;
   transition: background 0.12s ease, color 0.12s ease;
 }
 .nav-group-toggle svg:first-child { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
 .nav-group-toggle span { flex: 1; text-align: left; }
-.nav-group-toggle:hover { background: #2b2316; color: #fff; }
+.nav-group-toggle:hover { background: #473a22; color: #fff; }
 .nav-group-toggle.active { color: #fff; }
 .chevron { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; transition: transform 0.15s ease; }
 .chevron.open { transform: rotate(180deg); }
 .nav-group {
   display: flex; flex-direction: column; gap: 0.2rem;
   padding-left: 0.9rem; margin-left: 0.85rem;
-  border-left: 1px solid #473a22;
+  border-left: 1px solid #6b5531;
 }
 .nav-group a { padding: 0.5rem 0.75rem; font-size: 0.83rem; }
 .nav-group a svg { width: 16px; height: 16px; }
 .user-chip {
   display: flex; align-items: center; gap: 0.6rem;
-  margin-top: 1rem; padding: 0.6rem; border-radius: 8px; background: #2b2316;
+  margin-top: 1rem; padding: 0.6rem; border-radius: 8px; background: #473a22;
 }
 .avatar {
   width: 28px; height: 28px; border-radius: 999px; flex-shrink: 0;
-  background: #473a22; display: flex; align-items: center; justify-content: center;
+  background: #6b5531; display: flex; align-items: center; justify-content: center;
   font-size: 0.8rem; font-weight: 700;
 }
-.email { font-size: 0.75rem; color: #d8cfb8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.email { font-size: 0.75rem; color: #e3dbc4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .logout-btn {
-  margin-top: 0.6rem; background: transparent; border: 1px solid #473a22; color: #d8cfb8;
+  margin-top: 0.6rem; background: transparent; border: 1px solid #6b5531; color: #e3dbc4;
   padding: 0.5rem; border-radius: 8px; font-size: 0.85rem; font-weight: 500;
   transition: background 0.12s ease, border-color 0.12s ease;
 }
-.logout-btn:hover { background: #2b2316; border-color: #5c4c2c; }
+.logout-btn:hover { background: #473a22; border-color: #7d6840; }
 .content { flex: 1; min-width: 0; }
 .topbar {
   display: flex; justify-content: flex-end; align-items: center; gap: 0.75rem;

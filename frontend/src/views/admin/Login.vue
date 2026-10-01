@@ -106,7 +106,7 @@ async function submit() {
    the public site's look right at the admin door, instead of the old unrelated teal. */
 .side-panel {
   position: relative; flex: 1 1 46%; max-width: 620px; overflow: hidden;
-  background: linear-gradient(160deg, #15100a 0%, #2e2416 45%, #7d6225 100%);
+  background: linear-gradient(160deg, #2b2015 0%, #473823 45%, #937025 100%);
   display: flex; align-items: center; padding: 4rem 4vw;
 }
 .side-glow {
@@ -149,7 +149,7 @@ async function submit() {
 .form-brand-mark {
   width: 46px; height: 46px; border-radius: 13px; margin: 0 auto 1rem;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, var(--color-accent), var(--color-primary)); box-shadow: 0 10px 24px rgba(156, 122, 46, 0.35);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-primary)); box-shadow: 0 10px 24px rgba(173, 138, 62, 0.35);
 }
 .form-brand-mark svg { width: 24px; height: 24px; fill: #fff; }
 .form-eyebrow { text-align: center; margin: 0 0 0.3rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); }
