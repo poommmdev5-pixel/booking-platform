@@ -99,6 +99,11 @@ function book() {
           </div>
         </section>
 
+        <div v-if="product.extras.length > 0" class="thai-divider block-divider" aria-hidden="true">
+          <span class="divider-line"></span>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 17 12 12 22 7 12Z M12 7.2 14.6 12 12 16.8 9.4 12Z" fill-rule="evenodd"/></svg>
+          <span class="divider-line"></span>
+        </div>
         <section v-if="product.extras.length > 0" class="content-block">
           <h2 class="block-heading">{{ $t('product.availableExtras') }}</h2>
           <div class="extras-row">
@@ -154,9 +159,17 @@ function book() {
 .hero-image {
   position: relative; border-radius: var(--radius-xl); overflow: hidden;
   background: var(--color-cream); aspect-ratio: 16 / 9; box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
 }
 .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .hero-image-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, var(--color-primary-light), var(--color-cream)); }
+/* A quiet fade at the foot of the photo — without it, a bright photo edge meets the dark
+   page below it abruptly; this eases the transition the same way the hero gradient does
+   on the homepage, just subtler since this image isn't carrying any text of its own. */
+.hero-image::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, transparent 72%, rgba(11, 10, 7, 0.5) 100%);
+}
 @media (max-width: 640px) { .hero-image { aspect-ratio: 4 / 3; border-radius: var(--radius-lg); } }
 
 .thumbs { display: flex; gap: 0.55rem; flex-wrap: wrap; margin-top: 0.85rem; }
@@ -181,17 +194,19 @@ function book() {
 
 .content-block { margin-bottom: 2.75rem; }
 .content-block:last-child { margin-bottom: 0; }
+.block-divider { margin: -1rem 0 2rem; }
 .block-heading {
-  font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--color-primary-dark);
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--color-text);
   margin: 0 0 1.1rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--color-border-soft);
 }
 .description { color: var(--color-text-muted); line-height: 1.9; white-space: pre-wrap; font-size: 0.96rem; }
 
 .tag-row { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.35rem; }
 .tag-pill {
-  font-size: 0.78rem; font-weight: 600; color: var(--color-primary-dark);
+  font-size: 0.76rem; font-weight: 600; color: var(--color-primary);
   padding: 0.4rem 0.9rem; border-radius: 999px; background: var(--color-primary-light);
-  letter-spacing: 0.01em;
+  border: 1px solid var(--color-border);
+  letter-spacing: 0.02em;
 }
 
 .extras-row { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.4rem; margin: 0 -0.1rem; scrollbar-width: thin; }
@@ -210,13 +225,22 @@ function book() {
 
 /* ---------------- Booking card ---------------- */
 .booking-card { position: sticky; top: 5.5rem; }
-.booking-card-inner { padding: 2rem 1.85rem; border: 1px solid var(--color-border-soft); box-shadow: var(--shadow-md); }
-.starting-label { margin: 0; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-faint); }
-.starting-price { margin: 0.3rem 0 0; font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; color: var(--color-primary-dark); }
-.starting-price span { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 600; color: var(--color-text-muted); margin-left: 0.3rem; }
+.booking-card-inner {
+  position: relative; overflow: hidden;
+  padding: 2.1rem 1.85rem 1.85rem; border: 1px solid var(--color-border); box-shadow: var(--shadow-md);
+}
+/* A thin gold cap along the top edge — the one piece of chrome that marks this card as
+   "the important one" on the page, without needing a loud background fill to do it. */
+.booking-card-inner::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary) 50%, transparent);
+}
+.starting-label { margin: 0; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-faint); }
+.starting-price { margin: 0.4rem 0 0; font-family: var(--font-display); font-size: 1.9rem; font-weight: 600; color: var(--color-primary); }
+.starting-price span { font-family: var(--font-sans); font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted); margin-left: 0.3rem; }
 .card-divider { height: 1px; background: var(--color-border-soft); margin: 1.4rem 0; }
 
-.tier-heading { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-faint); margin: 0 0 0.75rem; }
+.tier-heading { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-faint); margin: 0 0 0.75rem; }
 .price-tiers { list-style: none; padding: 0; margin: 0 0 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
 .price-tiers li {
   display: flex; align-items: center; gap: 0.7rem;
@@ -225,7 +249,7 @@ function book() {
 }
 .price-tiers li:last-child { border-bottom: none; }
 .tier-label { flex: 1; color: var(--color-text); }
-.price-tiers li strong { color: var(--color-primary-dark); font-size: 0.98rem; font-weight: 700; }
+.price-tiers li strong { color: var(--color-primary); font-size: 0.98rem; font-weight: 700; }
 .book-btn { width: 100%; justify-content: center; font-size: 1rem; padding: 0.9rem; }
 .reassurance {
   display: flex; flex-direction: column; align-items: center; gap: 0.35rem;

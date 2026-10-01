@@ -177,7 +177,7 @@ onMounted(load);
 .booking-side-info { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; flex-shrink: 0; }
 .row-actions { display: flex; gap: 0.5rem; }
 .booking-total { margin: 0; font-weight: 800; font-size: 1.05rem; color: var(--color-primary); }
-.pending-note { margin: 0; font-size: 0.76rem; font-weight: 700; color: #92400e; }
+.pending-note { margin: 0; font-size: 0.76rem; font-weight: 700; color: var(--color-warning); }
 
 /* Two action buttons (reschedule + cancel) are wider than the single cancel button this
    card was designed around — below the width where both halves fit on one row, .booking-card
@@ -194,7 +194,7 @@ onMounted(load);
 .empty-state { display: flex; flex-direction: column; align-items: center; gap: 1.1rem; padding: 3.5rem 1rem; }
 
 .modal-backdrop {
-  position: fixed; inset: 0; background: rgba(15, 45, 41, 0.45); backdrop-filter: blur(2px);
+  position: fixed; inset: 0; background: rgba(5, 4, 2, 0.6); backdrop-filter: blur(2px);
   display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 1.5rem;
 }
 .modal-card { width: 100%; max-width: 420px; padding: 1.75rem; }
