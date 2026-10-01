@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const rateLimit = require('express-rate-limit');
 const { query } = require('../db');
 const { hashPassword, verifyPassword } = require('../utils/password');
 const { signAccessToken, signRefreshToken, verifyRefreshToken } = require('../utils/jwt');
@@ -6,6 +7,18 @@ const { badRequest, unauthorized, conflict } = require('../utils/httpError');
 const asyncHandler = require('../utils/asyncHandler');
 
 const router = Router();
+
+// Nothing else in this app gates how many times a client can try a password, so without
+// this a login endpoint can be brute-forced at whatever rate the attacker's connection
+// allows. Keyed by IP (relies on app.set('trust proxy', ...) in index.js so this sees the
+// real client IP through nginx, not nginx's own container IP for every request).
+const loginRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { statusCode: 429, message: 'Too many login attempts. Please try again later.' },
+});
 
 const REFRESH_COOKIE = 'refresh_token';
 const refreshCookieOptions = () => ({
@@ -21,6 +34,7 @@ function issueTokens(user) {
 
 router.post(
   '/admin/login',
+  loginRateLimit,
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) throw badRequest('email and password are required');
@@ -37,6 +51,7 @@ router.post(
 
 router.post(
   '/employee/login',
+  loginRateLimit,
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) throw badRequest('email and password are required');
@@ -58,6 +73,7 @@ router.post(
 
 router.post(
   '/customer/register',
+  loginRateLimit,
   asyncHandler(async (req, res) => {
     const { name, email, phone, password } = req.body;
     if (!name || !email || !password || password.length < 8) {
@@ -81,6 +97,7 @@ router.post(
 
 router.post(
   '/customer/login',
+  loginRateLimit,
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) throw badRequest('email and password are required');

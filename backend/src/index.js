@@ -7,6 +7,11 @@ const { ensureSeedData } = require('./seed');
 
 const app = express();
 
+// Requests always arrive via nginx (direct access to this container isn't exposed), so
+// trust exactly one hop of X-Forwarded-For — needed for req.ip (and therefore the login
+// rate limiter) to see the real client IP instead of nginx's container IP for every request.
+app.set('trust proxy', 1);
+
 app.use(cors({ origin: config.corsOrigin, credentials: true }));
 app.use(cookieParser());
 app.use(express.json());
