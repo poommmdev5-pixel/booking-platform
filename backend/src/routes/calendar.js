@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { query, withTransaction } = require('../db');
+const { query, withTransaction, withTransactionRetry } = require('../db');
 const { authenticate, requireAdmin } = require('../middleware/auth');
 const { badRequest, notFound, conflict } = require('../utils/httpError');
 const asyncHandler = require('../utils/asyncHandler');
@@ -385,23 +385,22 @@ router.post(
       throw badRequest('Open this month for booking before configuring individual days');
     }
 
-    const dayId = await withTransaction(async (cx) => {
-      const [existing] = await cx.query('SELECT id FROM stay_calendar_days WHERE product_id = ? AND date = ? FOR UPDATE', [
-        productId,
-        date,
-      ]);
-      let id;
-      if (existing.length > 0) {
-        id = existing[0].id;
-        await cx.query('UPDATE stay_calendar_days SET is_holiday = ? WHERE id = ?', [isHoliday ? 1 : 0, id]);
-      } else {
-        const [result] = await cx.query('INSERT INTO stay_calendar_days (product_id, date, is_holiday) VALUES (?, ?, ?)', [
-          productId,
-          date,
-          isHoliday ? 1 : 0,
-        ]);
-        id = result.insertId;
-      }
+    // Retried on deadlock: besides the upsert below, the stay_day_employees insert takes
+    // a shared lock on the referenced employees row for each FK — concurrent requests
+    // staffing different days with the same employee can still deadlock each other there.
+    const dayId = await withTransactionRetry(async (cx) => {
+      // A plain SELECT ... FOR UPDATE followed by a conditional INSERT/UPDATE takes a
+      // gap lock when the row doesn't exist yet — under concurrent requests for
+      // different dates on the same product, those gap locks can deadlock each other.
+      // A single INSERT ... ON DUPLICATE KEY UPDATE is atomic and immune to that;
+      // LAST_INSERT_ID(id) makes insertId resolve to the existing row's id on update,
+      // same as the old SELECT-then-branch did.
+      const [result] = await cx.query(
+        `INSERT INTO stay_calendar_days (product_id, date, is_holiday) VALUES (?, ?, ?)
+         ON DUPLICATE KEY UPDATE is_holiday = VALUES(is_holiday), id = LAST_INSERT_ID(id)`,
+        [productId, date, isHoliday ? 1 : 0],
+      );
+      const id = result.insertId;
       await cx.query('DELETE FROM stay_day_employees WHERE day_id = ?', [id]);
       if (usesStaff && !isHoliday && Array.isArray(employeeIds)) {
         for (const empId of employeeIds) {
@@ -646,7 +645,10 @@ router.post(
     }
     if (timeEnd <= timeStart) throw badRequest('End time must be after start time');
 
-    const sessionId = await withTransaction(async (cx) => {
+    // Retried on deadlock: the overlap check's FOR UPDATE scan takes a gap lock even
+    // when it finds nothing, so two concurrent requests creating rounds on different,
+    // non-overlapping times/dates for the same product can still deadlock each other.
+    const sessionId = await withTransactionRetry(async (cx) => {
       // A product's rounds must never overlap in time on the same day, regardless of
       // which staff are assigned — two overlapping rounds on one product/service would
       // let a customer end up double-booked into the same time slot.
