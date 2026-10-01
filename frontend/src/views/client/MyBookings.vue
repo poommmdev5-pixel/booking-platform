@@ -179,6 +179,18 @@ onMounted(load);
 .booking-total { margin: 0; font-weight: 800; font-size: 1.05rem; color: var(--color-primary); }
 .pending-note { margin: 0; font-size: 0.76rem; font-weight: 700; color: #92400e; }
 
+/* Two action buttons (reschedule + cancel) are wider than the single cancel button this
+   card was designed around — below the width where both halves fit on one row, .booking-card
+   wraps, and the now-isolated .booking-side-info sits at the wrapped line's flex-start
+   instead of staying flush with the card's right edge. Stack and left-align everything
+   instead of leaving that half-right-aligned, half-not state. */
+@media (max-width: 640px) {
+  .booking-card { flex-direction: column; align-items: stretch; }
+  .booking-side-info { align-items: flex-start; }
+  .row-actions { width: 100%; }
+  .row-actions .btn { flex: 1; justify-content: center; }
+}
+
 .empty-state { display: flex; flex-direction: column; align-items: center; gap: 1.1rem; padding: 3.5rem 1rem; }
 
 .modal-backdrop {
