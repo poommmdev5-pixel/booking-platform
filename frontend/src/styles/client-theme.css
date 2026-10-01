@@ -1,4 +1,4 @@
-/* Client-facing "Andaman Breeze" theme — Luxury Thai Contemporary: deep emerald fading to
+/* Client-facing "Andaman Breeze" theme — Luxury Thai Contemporary: deep sea-sand fading to
    black, brushed-gold accent, warm ivory text. Everything here is scoped under .client-shell
    (ClientLayout.vue's root) so it never leaks into the admin console or employee portal,
    which keep their own themes. Because main.css's generic primitives (.btn, .card,
@@ -32,10 +32,10 @@
   /* Surfaces sit visibly lighter than the page background (not just a shade darker) so
      cards read as "lifted" panels rather than a slightly-different patch of the same void —
      this is the main lever for "feels airier," short of giving up the dark theme itself. */
-  --color-surface: #173321;
-  --color-surface-2: #1f4029;
-  --color-bg: #0a1c12;
-  --color-cream: #1f4029;
+  --color-surface: #332919;
+  --color-surface-2: #41331f;
+  --color-bg: #15100a;
+  --color-cream: #41331f;
 
   --color-success: #8fae84;
   --color-success-bg: rgba(143, 174, 132, 0.14);
@@ -60,13 +60,13 @@
 
   position: relative;
   isolation: isolate;
-  /* Deep emerald at the top (where the hero sits) settling to near-black further down —
+  /* Deep sea-sand at the top (where the hero sits) settling to near-black further down —
      a fixed-height, non-repeating fade layered over a solid base in the gradient's own
      end color. (background-attachment: fixed would size the gradient to the viewport and
      then, since the default is background-repeat: repeat, visibly tile it again every
      viewport-height down any page taller than one screen — this avoids that entirely.) */
-  background-color: #030805;
-  background-image: linear-gradient(180deg, #14301f 0%, #0d2216 28%, #07130c 60%, transparent 100%);
+  background-color: #0a0705;
+  background-image: linear-gradient(180deg, #4a3a22 0%, #2e2416 28%, #15100a 60%, transparent 100%);
   background-repeat: no-repeat;
   background-size: 100% 1400px;
   min-height: 100vh;

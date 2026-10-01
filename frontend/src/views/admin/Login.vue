@@ -98,17 +98,20 @@ async function submit() {
 </template>
 
 <style scoped>
-.admin-login { min-height: 100vh; display: flex; background: #f8fafc; }
+.admin-login { min-height: 100vh; display: flex; background: var(--color-bg); }
 
 /* ---- Left brand/marketing panel (desktop only) ---- */
+/* Same dark sea-sand-to-bronze family as the client site's own gradient (just reversed
+   light-to-dark, since this panel reads top-left to bottom-right) — a deliberate echo of
+   the public site's look right at the admin door, instead of the old unrelated teal. */
 .side-panel {
   position: relative; flex: 1 1 46%; max-width: 620px; overflow: hidden;
-  background: linear-gradient(160deg, #0a2e2b 0%, #0f4a44 45%, #128f80 100%);
+  background: linear-gradient(160deg, #15100a 0%, #2e2416 45%, #7d6225 100%);
   display: flex; align-items: center; padding: 4rem 4vw;
 }
 .side-glow {
   position: absolute; width: 640px; height: 640px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(214, 138, 60, 0.45), transparent 65%);
+  background: radial-gradient(circle, rgba(199, 160, 74, 0.4), transparent 65%);
   top: -220px; right: -220px; filter: blur(10px); pointer-events: none;
 }
 .side-grid {
@@ -130,7 +133,7 @@ async function submit() {
 .side-points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.9rem; }
 .side-points li { display: flex; align-items: center; gap: 0.65rem; color: rgba(255, 255, 255, 0.88); font-size: 0.9rem; font-weight: 500; }
 .side-point-icon {
-  flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: rgba(214, 138, 60, 0.35);
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: rgba(199, 160, 74, 0.35);
   display: flex; align-items: center; justify-content: center;
 }
 .side-point-icon svg { width: 13px; height: 13px; fill: #f4c78a; }
@@ -140,13 +143,13 @@ async function submit() {
 .form-panel { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 1.25rem; position: relative; }
 .lang-switch-wrap { position: absolute; top: 1.5rem; right: 1.5rem; left: 1.5rem; display: flex; justify-content: flex-end; }
 .login-card {
-  width: 100%; max-width: 380px; background: #fff; border-radius: var(--radius-lg);
+  width: 100%; max-width: 380px; background: var(--color-surface); border-radius: var(--radius-lg);
   border: 1px solid var(--color-border); box-shadow: var(--shadow-lg); padding: 2.5rem 2.25rem;
 }
 .form-brand-mark {
   width: 46px; height: 46px; border-radius: 13px; margin: 0 auto 1rem;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, var(--color-primary), #4fb3a6); box-shadow: 0 10px 24px rgba(15, 122, 112, 0.35);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-primary)); box-shadow: 0 10px 24px rgba(156, 122, 46, 0.35);
 }
 .form-brand-mark svg { width: 24px; height: 24px; fill: #fff; }
 .form-eyebrow { text-align: center; margin: 0 0 0.3rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); }

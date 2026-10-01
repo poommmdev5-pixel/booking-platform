@@ -1,20 +1,36 @@
-/* Admin "Andaman Breeze" theme — reuses the exact same teal/gold brand tokens as
-   client-theme.css so the admin back office reads as the same product as the client
-   site, not a bolted-on generic dashboard. Scoped under .admin-shell (AdminLayout.vue's
-   root, and Login.vue's root, since /admin/login is a top-level route outside
-   AdminLayout) so it never leaks into the client-facing .client-shell, which keeps its
-   own copy of these same tokens independently. Because main.css's generic primitives
-   (.btn, .card, .status-badge, inputs, focus rings) are all var()-driven, redefining the
-   tokens below re-themes them automatically — no need to touch those rules directly. */
+/* Admin "Andaman Breeze" theme — same gold/sea-sand brand family as client-theme.css
+   (the public site), so the back office reads as the same product instead of a bolted-on
+   generic dashboard, while staying a light, high-contrast working surface — a dense admin
+   table/form screen is the wrong place for the client site's cinematic dark treatment.
+   Scoped under .admin-shell (AdminLayout.vue's root, and Login.vue's root, since
+   /admin/login is a top-level route outside AdminLayout) so it never leaks into the
+   client-facing .client-shell, which keeps its own copy of these tokens independently.
+   Because main.css's generic primitives (.btn, .card, .status-badge, inputs, focus rings)
+   are all var()-driven, redefining the tokens below re-themes them automatically — no
+   need to touch those rules directly. */
 .admin-shell {
-  --color-primary: #0f7a70;
-  --color-primary-hover: #0b5f58;
-  --color-primary-light: #e2f4f1;
-  --color-primary-dark: #0a4a45;
+  /* A deeper, darker gold than the client site's accent — the client's bright brushed-gold
+     reads as low-contrast "washed out" when used as small body-sized text/links on a white
+     admin background, so primary here is a richer bronze instead, with the bright gold kept
+     for the accent role (badges, highlight chips) where it sits on a tinted background. */
+  --color-primary: #9c7a2e;
+  --color-primary-hover: #7d6225;
+  --color-primary-light: #faf3e2;
+  --color-primary-dark: #5c4a1f;
 
-  --color-accent: #d68a3c;
-  --color-accent-hover: #b8752f;
-  --color-accent-light: #fbf0dd;
+  --color-accent: #c7a04a;
+  --color-accent-hover: #ad8a3e;
+  --color-accent-light: #f7edd7;
+
+  /* Warm sand-tinted neutrals in place of main.css's cool slate greys — this is what
+     actually ties the admin screen to the client site's palette at a glance, since most
+     of any admin page is neutral surface/text/border, not accent color. */
+  --color-text: #211c12;
+  --color-text-muted: #6b6250;
+  --color-text-faint: #9c927a;
+  --color-border: #e8e0cf;
+  --color-surface: #fffefb;
+  --color-bg: #faf6ec;
 
   --color-success: #15803d;
   --color-success-bg: #e1f5e6;
