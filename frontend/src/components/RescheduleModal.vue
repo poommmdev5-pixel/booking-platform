@@ -341,7 +341,7 @@ async function confirmReschedule() {
 
 <style scoped>
 .modal-backdrop {
-  position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(2px);
+  position: fixed; inset: 0; background: rgba(4, 10, 7, 0.6); backdrop-filter: blur(2px);
   display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 1.25rem; overflow-y: auto;
 }
 .modal-card {

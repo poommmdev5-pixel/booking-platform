@@ -1,5 +1,5 @@
-/* Client-facing "Andaman Breeze" theme — Luxury Thai Contemporary: deep obsidian base,
-   brushed-gold accent, warm ivory text. Everything here is scoped under .client-shell
+/* Client-facing "Andaman Breeze" theme — Luxury Thai Contemporary: deep emerald fading to
+   black, brushed-gold accent, warm ivory text. Everything here is scoped under .client-shell
    (ClientLayout.vue's root) so it never leaks into the admin console or employee portal,
    which keep their own themes. Because main.css's generic primitives (.btn, .card,
    input/select, .status-badge, .auth-card, tables, .empty-state) are all var()-driven,
@@ -19,20 +19,23 @@
   --color-accent-hover: #dfbd71;
   --color-accent-light: rgba(199, 160, 74, 0.14);
 
-  /* Text — warm ivory/champagne, never pure white (brief explicitly calls out pure white
-     on black as a thing to avoid; a warm-tinted off-white reads as intentional instead). */
-  --color-text: #f1e9d8;
-  --color-text-muted: #b3a788;
-  --color-text-faint: #7d735a;
+  /* Text — brightened warm ivory/champagne (never pure white — a warm-tinted off-white
+     reads as intentional, pure white on a dark ground reads as a default no one set). */
+  --color-text: #f8f3e6;
+  --color-text-muted: #cdc3a4;
+  --color-text-faint: #988d6e;
 
   /* Hairlines — gold-tinted on dark surfaces instead of the grey borders a light theme
-     would use; .25 for a visible accent line, .08 for a near-invisible structural seam. */
-  --color-border: rgba(199, 160, 74, 0.25);
-  --color-border-soft: rgba(241, 233, 216, 0.08);
-  --color-surface: #18160f;
-  --color-surface-2: #221e15;
-  --color-bg: #0b0a07;
-  --color-cream: #221e15;
+     would use; .3 for a visible accent line, .1 for a near-invisible structural seam. */
+  --color-border: rgba(199, 160, 74, 0.3);
+  --color-border-soft: rgba(248, 243, 230, 0.1);
+  /* Surfaces sit visibly lighter than the page background (not just a shade darker) so
+     cards read as "lifted" panels rather than a slightly-different patch of the same void —
+     this is the main lever for "feels airier," short of giving up the dark theme itself. */
+  --color-surface: #173321;
+  --color-surface-2: #1f4029;
+  --color-bg: #0a1c12;
+  --color-cream: #1f4029;
 
   --color-success: #8fae84;
   --color-success-bg: rgba(143, 174, 132, 0.14);
@@ -57,25 +60,37 @@
 
   position: relative;
   isolation: isolate;
-  background: var(--color-bg);
+  /* Deep emerald at the top (where the hero sits) settling to near-black further down —
+     a fixed-height, non-repeating fade layered over a solid base in the gradient's own
+     end color. (background-attachment: fixed would size the gradient to the viewport and
+     then, since the default is background-repeat: repeat, visibly tile it again every
+     viewport-height down any page taller than one screen — this avoids that entirely.) */
+  background-color: #030805;
+  background-image: linear-gradient(180deg, #14301f 0%, #0d2216 28%, #07130c 60%, transparent 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 1400px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   color: var(--color-text);
 }
 
-/* A very faint gold fret pattern wash over the whole page — "architecture," not "picture":
-   kept to single-digit opacity so it reads as material texture, never as a motif competing
-   with real content. */
+/* The same quiet grid-line technique as the admin login's side panel, re-themed in gold —
+   a blueprint/drafting-table texture rather than a repeating decorative motif, masked so
+   it concentrates behind the hero and fades out before it reaches the footer. */
 .client-shell::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: url('/images/pattern-thai-fret.svg');
-  background-size: 40px 40px;
-  opacity: 0.035;
   pointer-events: none;
+  opacity: 0.6;
+  background-image:
+    linear-gradient(rgba(199, 160, 74, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(199, 160, 74, 0.09) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 35%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 35%, transparent 100%);
 }
 /* Two soft gold glows, echoing a candlelit/ambient-lit interior rather than the flat
    photo-wash the old resort theme used — a dark theme needs its own light source. */

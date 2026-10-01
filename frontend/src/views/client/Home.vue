@@ -136,7 +136,7 @@ function submitSearch() {
         :class="{ 'has-image': c.image }"
         :style="
           c.image
-            ? { backgroundImage: `linear-gradient(180deg, rgba(11,10,7,0.15) 0%, rgba(11,10,7,0.85) 100%), url('${c.image.urlMedium}')` }
+            ? { backgroundImage: `linear-gradient(180deg, rgba(7,19,12,0.15) 0%, rgba(7,19,12,0.85) 100%), url('${c.image.urlMedium}')` }
             : { background: (CATEGORY_VISUAL[c.bookingType] || CATEGORY_VISUAL.stay).gradient }
         "
       >
@@ -201,7 +201,7 @@ function submitSearch() {
 .hero-bg {
   position: absolute; inset: 0;
   background:
-    linear-gradient(100deg, rgba(6, 5, 2, 0.94) 0%, rgba(10, 9, 5, 0.82) 32%, rgba(11, 10, 7, 0.5) 58%, rgba(11, 10, 7, 0.22) 100%),
+    linear-gradient(100deg, rgba(4, 12, 8, 0.94) 0%, rgba(6, 16, 10, 0.82) 32%, rgba(7, 19, 12, 0.5) 58%, rgba(7, 19, 12, 0.22) 100%),
     radial-gradient(ellipse 60% 60% at 10% 15%, rgba(199, 160, 74, 0.22), transparent 55%),
     url('/images/hero-beach-day.jpg');
   background-size: cover;
@@ -359,7 +359,7 @@ h1.hero-title { color: var(--color-text); margin: 0 0 1.1rem; font-size: clamp(2
   position: relative; overflow: hidden; border-radius: var(--radius-xl);
   border: 1px solid var(--color-border);
   background:
-    linear-gradient(100deg, rgba(6, 5, 2, 0.93) 0%, rgba(9, 8, 5, 0.8) 40%, rgba(11, 10, 7, 0.55) 70%, rgba(11, 10, 7, 0.2) 100%),
+    linear-gradient(100deg, rgba(4, 12, 8, 0.93) 0%, rgba(6, 16, 10, 0.8) 40%, rgba(7, 19, 12, 0.55) 70%, rgba(7, 19, 12, 0.2) 100%),
     url('/images/hero-beach-dusk.jpg');
   background-size: cover;
   background-position: center 40%;

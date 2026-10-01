@@ -168,7 +168,7 @@ function book() {
    on the homepage, just subtler since this image isn't carrying any text of its own. */
 .hero-image::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, transparent 72%, rgba(11, 10, 7, 0.5) 100%);
+  background: linear-gradient(180deg, transparent 72%, rgba(7, 19, 12, 0.5) 100%);
 }
 @media (max-width: 640px) { .hero-image { aspect-ratio: 4 / 3; border-radius: var(--radius-lg); } }
 
