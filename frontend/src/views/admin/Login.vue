@@ -138,7 +138,7 @@ async function submit() {
 
 /* ---- Right form panel ---- */
 .form-panel { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 1.25rem; position: relative; }
-.lang-switch-wrap { position: absolute; top: 1.5rem; right: 1.5rem; }
+.lang-switch-wrap { position: absolute; top: 1.5rem; right: 1.5rem; left: 1.5rem; display: flex; justify-content: flex-end; }
 .login-card {
   width: 100%; max-width: 380px; background: #fff; border-radius: var(--radius-lg);
   border: 1px solid var(--color-border); box-shadow: var(--shadow-lg); padding: 2.5rem 2.25rem;

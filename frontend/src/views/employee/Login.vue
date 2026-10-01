@@ -64,7 +64,7 @@ async function submit() {
   background: linear-gradient(160deg, #0a2e2b 0%, #0f4a44 45%, #128f80 100%);
   padding: 2rem 1.25rem; position: relative;
 }
-.lang-switch-wrap { position: absolute; top: 1.5rem; right: 1.5rem; }
+.lang-switch-wrap { position: absolute; top: 1.5rem; right: 1.5rem; left: 1.5rem; display: flex; justify-content: flex-end; }
 .employee-card { max-width: 380px; }
 .brand-mark {
   width: 46px; height: 46px; border-radius: 13px; margin: 0 auto 1rem;
