@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { categoriesApi } from '../../api/categories';
+import ImageManager from '../../components/ImageManager.vue';
 import BackButton from '../../components/BackButton.vue';
 
 const { t } = useI18n();
@@ -19,6 +20,14 @@ const code = ref('');
 const bookingType = ref('stay');
 const translations = ref(LOCALES.map((locale) => ({ locale, name: '' })));
 const error = ref('');
+// A category shows at most one image, but ImageManager expects a list — so this holds
+// 0 or 1 items, shaped like a product image (isCover always true since there's only one,
+// which also keeps ImageManager from ever showing its "set as cover" button).
+const images = ref([]);
+
+function toImageList(image) {
+  return image ? [{ id: 'category-image', urlThumbnail: image.urlThumbnail, isCover: true }] : [];
+}
 
 onMounted(async () => {
   if (props.id) {
@@ -27,6 +36,7 @@ onMounted(async () => {
     const c = await categoriesApi.getAdmin(categoryId.value);
     code.value = c.code;
     bookingType.value = c.bookingType;
+    images.value = toImageList(c.image);
     for (const locale of LOCALES) {
       const existing = c.translations.find((t) => t.locale === locale);
       const slot = translations.value.find((t) => t.locale === locale);
@@ -49,13 +59,28 @@ async function save() {
   try {
     if (isEdit.value) {
       await categoriesApi.update(categoryId.value, payload);
+      router.push({ name: 'admin-categories' });
     } else {
-      await categoriesApi.create(payload);
+      // Stay on this form instead of navigating away, so the image uploader (which needs
+      // a category id to exist) can appear immediately after the first save.
+      const category = await categoriesApi.create(payload);
+      isEdit.value = true;
+      categoryId.value = category.id;
+      router.replace({ name: 'admin-category-edit', params: { id: category.id } });
     }
-    router.push({ name: 'admin-categories' });
   } catch (err) {
     error.value = err.message;
   }
+}
+
+async function uploadImage(file) {
+  const img = await categoriesApi.uploadImage(categoryId.value, file);
+  images.value = toImageList(img);
+}
+
+async function removeImage() {
+  await categoriesApi.removeImage(categoryId.value);
+  images.value = [];
 }
 </script>
 
@@ -81,6 +106,17 @@ async function save() {
       <label v-if="tr.locale === activeLocale">{{ $t('admin.name') }}<input v-model="tr.name" /></label>
     </template>
 
+    <label class="image-label">{{ $t('admin.categoryImage') }}</label>
+    <ImageManager
+      v-if="isEdit && categoryId"
+      :images="images"
+      :max="1"
+      :on-upload="uploadImage"
+      :on-set-cover="() => {}"
+      :on-remove="removeImage"
+    />
+    <p v-else class="hint">{{ $t('admin.saveBeforeImage') }}</p>
+
     <p v-if="error" class="error">{{ error }}</p>
     <div class="save-bar">
       <router-link :to="{ name: 'admin-categories' }" class="btn btn-secondary">{{ $t('common.cancel') }}</router-link>
@@ -96,4 +132,6 @@ async function save() {
 .tabs button { padding: 0.4rem 0.9rem; border: none; background: transparent; border-radius: 6px; font-weight: 600; font-size: 0.85rem; color: var(--color-text-muted); }
 .tabs button.active { background: #fff; color: var(--color-primary); box-shadow: var(--shadow-sm); }
 .save-bar { display: flex; justify-content: flex-end; gap: 0.6rem; margin-top: 1.25rem; }
+.image-label { display: block; font-weight: 600; font-size: 0.9rem; margin: 1.25rem 0 0.5rem; }
+.hint { font-size: 0.85rem; color: var(--color-text-muted); }
 </style>

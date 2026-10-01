@@ -1,11 +1,23 @@
 const { Router } = require('express');
+const multer = require('multer');
 const { query, withTransaction } = require('../db');
 const { authenticate, requireAdmin } = require('../middleware/auth');
 const { localeFromRequest, pickTranslation } = require('../utils/i18n');
+const { processCategoryImage } = require('../utils/imageUpload');
 const { badRequest, notFound, conflict } = require('../utils/httpError');
 const asyncHandler = require('../utils/asyncHandler');
 
 const router = Router();
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
+
+function toImageShape(category) {
+  if (!category.image_url_thumbnail) return null;
+  return {
+    urlThumbnail: category.image_url_thumbnail,
+    urlMedium: category.image_url_medium,
+    urlOriginal: category.image_url_original,
+  };
+}
 
 function assertHasThai(translations) {
   if (!Array.isArray(translations) || !translations.some((t) => t.locale === 'th' && t.name)) {
@@ -30,6 +42,7 @@ router.get(
         code: c.code,
         bookingType: c.booking_type,
         name: pickTranslation(byCategory.get(c.id) || [], locale)?.name || c.code,
+        image: toImageShape(c),
       })),
     );
   }),
@@ -44,7 +57,7 @@ router.get(
     const [category] = await query('SELECT * FROM categories WHERE id = ?', [id]);
     if (!category) throw notFound('Category not found');
     const translations = await query('SELECT locale, name FROM category_translations WHERE category_id = ?', [id]);
-    res.json({ id: category.id, code: category.code, bookingType: category.booking_type, translations });
+    res.json({ id: category.id, code: category.code, bookingType: category.booking_type, translations, image: toImageShape(category) });
   }),
 );
 
@@ -95,6 +108,43 @@ router.put(
       }
     });
     res.json({ id, code, bookingType, translations });
+  }),
+);
+
+// A category shows at most one image — unlike products' gallery, uploading a new one here
+// replaces whatever was there before rather than adding to a list.
+router.post(
+  '/:id/image',
+  authenticate,
+  requireAdmin,
+  upload.single('file'),
+  asyncHandler(async (req, res) => {
+    const id = Number(req.params.id);
+    const [category] = await query('SELECT id FROM categories WHERE id = ?', [id]);
+    if (!category) throw notFound('Category not found');
+    if (!req.file) throw badRequest('file is required');
+
+    const processed = await processCategoryImage(id, req.file.buffer);
+    await query('UPDATE categories SET image_url_thumbnail = ?, image_url_medium = ?, image_url_original = ? WHERE id = ?', [
+      processed.urlThumbnail,
+      processed.urlMedium,
+      processed.urlOriginal,
+      id,
+    ]);
+    res.status(201).json(processed);
+  }),
+);
+
+router.delete(
+  '/:id/image',
+  authenticate,
+  requireAdmin,
+  asyncHandler(async (req, res) => {
+    const id = Number(req.params.id);
+    const [category] = await query('SELECT id FROM categories WHERE id = ?', [id]);
+    if (!category) throw notFound('Category not found');
+    await query('UPDATE categories SET image_url_thumbnail = NULL, image_url_medium = NULL, image_url_original = NULL WHERE id = ?', [id]);
+    res.json({ success: true });
   }),
 );
 

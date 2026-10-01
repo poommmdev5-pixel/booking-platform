@@ -66,7 +66,7 @@
     "loginFootnote": "For authorized administrators and staff only.",
     "login": "Admin Login", "dashboard": "Dashboard", "products": "Products", "calendar": "Calendar",
     "bookings": "Bookings", "settings": "Settings", "users": "Staff Users", "management": "Management",
-    "categories": "Categories", "addCategory": "Add Category", "editCategory": "Edit Category",
+    "categories": "Categories", "addCategory": "Add Category", "editCategory": "Edit Category", "categoryImage": "Category Image", "saveBeforeImage": "Save first, then you can add an image",
     "extras": "Extras", "addExtra": "Add Extra", "editExtra": "Edit Extra",
     "saveFirstForImages": "Save the details above first, then you can add images.",
     "noCategoriesYet": "No categories yet — create one first",

@@ -66,7 +66,7 @@
     "loginFootnote": "仅限已获授权的管理员与员工使用。",
     "login": "管理员登录", "dashboard": "仪表盘", "products": "产品管理", "calendar": "日历",
     "bookings": "预订管理", "settings": "设置", "users": "员工账户", "management": "管理",
-    "categories": "分类", "addCategory": "新增分类", "editCategory": "编辑分类",
+    "categories": "分类", "addCategory": "新增分类", "editCategory": "编辑分类", "categoryImage": "分类图片", "saveBeforeImage": "请先保存，才能添加图片",
     "extras": "附加服务", "addExtra": "新增附加服务", "editExtra": "编辑附加服务",
     "saveFirstForImages": "请先保存以上信息，然后才能添加图片。",
     "noCategoriesYet": "尚无分类 — 请先新增分类",

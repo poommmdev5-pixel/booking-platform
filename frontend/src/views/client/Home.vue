@@ -122,9 +122,14 @@ function submitSearch() {
         :key="c.id"
         :to="{ name: 'products', query: { categoryId: c.id } }"
         class="category-card"
-        :style="{ background: (CATEGORY_VISUAL[c.bookingType] || CATEGORY_VISUAL.stay).gradient }"
+        :class="{ 'has-image': c.image }"
+        :style="
+          c.image
+            ? { backgroundImage: `linear-gradient(180deg, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.75) 100%), url('${c.image.urlMedium}')` }
+            : { background: (CATEGORY_VISUAL[c.bookingType] || CATEGORY_VISUAL.stay).gradient }
+        "
       >
-        <svg class="category-icon" viewBox="0 0 24 24"><path :d="(CATEGORY_VISUAL[c.bookingType] || CATEGORY_VISUAL.stay).icon" /></svg>
+        <svg v-if="!c.image" class="category-icon" viewBox="0 0 24 24"><path :d="(CATEGORY_VISUAL[c.bookingType] || CATEGORY_VISUAL.stay).icon" /></svg>
         <span class="category-name">{{ c.name }}</span>
         <span class="category-arrow">{{ $t('home.viewAll') }} →</span>
       </router-link>
@@ -282,6 +287,7 @@ h1.hero-title { color: #fff; margin: 0 0 0.9rem; font-size: clamp(1.85rem, 4.2vw
   color: #fff; box-shadow: var(--shadow-md); transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .category-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.category-card.has-image { background-size: cover; background-position: center; }
 .category-card::before {
   content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(0, 0, 0, 0.35) 100%);
 }

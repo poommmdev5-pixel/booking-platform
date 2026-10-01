@@ -26,6 +26,11 @@ CREATE TABLE categories (
   id INT AUTO_INCREMENT PRIMARY KEY,
   code VARCHAR(100) NOT NULL UNIQUE,
   booking_type ENUM('stay','session','stay_session') NOT NULL,
+  -- A category shows at most one cover image (unlike products, which allow a gallery),
+  -- so this lives directly on the row instead of a separate images table.
+  image_url_thumbnail VARCHAR(500),
+  image_url_medium VARCHAR(500),
+  image_url_original VARCHAR(500),
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

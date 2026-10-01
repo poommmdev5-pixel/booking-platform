@@ -45,5 +45,6 @@ async function processEntityImage(kind, entityId, buffer) {
 const processProductImage = (productId, buffer) => processEntityImage('products', productId, buffer);
 const processExtraImage = (extraId, buffer) => processEntityImage('extras', extraId, buffer);
 const processEmployeeImage = (employeeId, buffer) => processEntityImage('employees', employeeId, buffer);
+const processCategoryImage = (categoryId, buffer) => processEntityImage('categories', categoryId, buffer);
 
-module.exports = { processProductImage, processExtraImage, processEmployeeImage };
+module.exports = { processProductImage, processExtraImage, processEmployeeImage, processCategoryImage };
