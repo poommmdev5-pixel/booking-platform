@@ -16,23 +16,22 @@ import MonthCalendar from '../../components/MonthCalendar.vue';
 import StatusBadge from '../../components/StatusBadge.vue';
 import BackButton from '../../components/BackButton.vue';
 
-// Stripe's own theming API (separate from the page's CSS) — 'night' is its built-in dark
-// base, tuned here to the client theme's charcoal/gold/ivory palette so the embedded card
-// form doesn't render as a plain white box in the middle of a dark page.
+// Stripe's own theming API (separate from the page's CSS) — tuned to the client theme's
+// ocean-teal/sand palette so the embedded card form reads as part of the same bright page.
 const STRIPE_APPEARANCE = {
-  theme: 'night',
+  theme: 'stripe',
   variables: {
-    colorPrimary: '#c7a04a',
-    colorBackground: '#62502f',
-    colorText: '#f1e9d8',
-    colorTextSecondary: '#b3a788',
-    colorDanger: '#d99a8a',
+    colorPrimary: '#0e7c74',
+    colorBackground: '#f7f0de',
+    colorText: '#2b2318',
+    colorTextSecondary: '#6b6250',
+    colorDanger: '#dc2626',
     fontFamily: 'Inter, "Noto Sans Thai", sans-serif',
     borderRadius: '8px',
   },
   rules: {
-    '.Input': { border: '1px solid rgba(241, 233, 216, 0.08)' },
-    '.Input:focus': { border: '1px solid #c7a04a', boxShadow: '0 0 0 3px rgba(199, 160, 74, 0.14)' },
+    '.Input': { border: '1px solid #e8ddc2' },
+    '.Input:focus': { border: '1px solid #0e7c74', boxShadow: '0 0 0 3px rgba(14, 124, 116, 0.14)' },
   },
 };
 
@@ -1336,7 +1335,7 @@ async function submit() {
 }
 .dot svg { width: 16px; height: 16px; fill: currentColor; }
 .step.active { color: var(--color-primary); }
-.step.active .dot { background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); border-color: var(--color-primary); color: #171208; box-shadow: 0 0 0 5px var(--color-primary-light); }
+.step.active .dot { background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); border-color: var(--color-primary); color: #fff; box-shadow: 0 0 0 5px var(--color-primary-light); }
 .step.done .dot { background: var(--color-success); border-color: var(--color-success); color: #fff; }
 .step-label { display: none; }
 @media (min-width: 620px) { .step-label { display: inline; } }
@@ -1424,7 +1423,7 @@ async function submit() {
   font-weight: 700; font-size: 0.83rem; padding: 0.45rem 0.9rem 0.45rem 0.6rem; border-radius: 999px;
   transition: background 0.15s ease;
 }
-.crumb-back:hover { background: var(--color-primary); color: #171208; }
+.crumb-back:hover { background: var(--color-primary); color: #fff; }
 .crumb-back svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
 .crumb-back-inline { margin-bottom: 0; background: transparent; color: var(--color-primary); padding: 0.3rem 0.5rem; }
 .crumb-back-inline:hover { background: var(--color-primary-light); color: var(--color-primary-hover); }
@@ -1505,7 +1504,7 @@ async function submit() {
 .stay-cal-day.closed, .stay-cal-day.unknown { color: var(--color-text-faint); background: transparent; cursor: not-allowed; font-weight: 500; }
 .stay-cal-day:disabled { cursor: not-allowed; }
 .stay-cal-day.range-start, .stay-cal-day.range-end {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); color: #171208; border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); color: #fff; border-color: var(--color-primary);
   box-shadow: var(--shadow-glow);
 }
 .stay-cal-day.in-range { background: var(--color-primary-light); color: var(--color-primary); border-radius: 6px; }

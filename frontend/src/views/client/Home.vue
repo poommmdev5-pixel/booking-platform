@@ -23,9 +23,9 @@ const activeCategory = ref('');
 // SaaS icon system; the icon + name do the differentiating, the gradient just varies
 // the highlight position/warmth slightly so the three still feel distinct up close.
 const CATEGORY_VISUAL = {
-  stay: { gradient: 'linear-gradient(135deg, #1a160e 0%, #4a3a1f 100%)', icon: 'M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z' },
-  session: { gradient: 'linear-gradient(135deg, #14120c 0%, #5c4522 100%)', icon: 'M20 12l-8 8-8-8 8-8 8 8zm-8-4.5L7.5 12 12 16.5 16.5 12 12 7.5z' },
-  stay_session: { gradient: 'linear-gradient(135deg, #201a12 0%, #6b4f25 100%)', icon: 'M4 4h6v6H4V4zm0 10h6v6H4v-6zM14 4h6v6h-6V4zm0 10h6v6h-6v-6z' },
+  stay: { gradient: 'linear-gradient(135deg, #0a2e2b 0%, #14756e 100%)', icon: 'M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z' },
+  session: { gradient: 'linear-gradient(135deg, #0a2e2b 0%, #0e7c74 100%)', icon: 'M20 12l-8 8-8-8 8-8 8 8zm-8-4.5L7.5 12 12 16.5 16.5 12 12 7.5z' },
+  stay_session: { gradient: 'linear-gradient(135deg, #0a2e2b 0%, #1a8a7f 100%)', icon: 'M4 4h6v6H4V4zm0 10h6v6H4v-6zM14 4h6v6h-6V4zm0 10h6v6h-6v-6z' },
 };
 
 async function loadLocalizedContent() {
@@ -136,7 +136,7 @@ function submitSearch() {
         :class="{ 'has-image': c.image }"
         :style="
           c.image
-            ? { backgroundImage: `linear-gradient(180deg, rgba(43,32,21,0.15) 0%, rgba(43,32,21,0.85) 100%), url('${c.image.urlMedium}')` }
+            ? { backgroundImage: `linear-gradient(180deg, rgba(10,58,54,0.15) 0%, rgba(10,58,54,0.85) 100%), url('${c.image.urlMedium}')` }
             : { background: (CATEGORY_VISUAL[c.bookingType] || CATEGORY_VISUAL.stay).gradient }
         "
       >
@@ -201,7 +201,7 @@ function submitSearch() {
 .hero-bg {
   position: absolute; inset: 0;
   background:
-    linear-gradient(100deg, rgba(26, 19, 12, 0.9) 0%, rgba(34, 26, 16, 0.78) 32%, rgba(43, 32, 21, 0.46) 58%, rgba(43, 32, 21, 0.2) 100%),
+    linear-gradient(100deg, rgba(5, 36, 34, 0.72) 0%, rgba(8, 48, 45, 0.58) 32%, rgba(10, 58, 54, 0.32) 58%, rgba(10, 58, 54, 0.12) 100%),
     radial-gradient(ellipse 60% 60% at 10% 15%, rgba(199, 160, 74, 0.22), transparent 55%),
     url('/images/hero-beach-day.jpg');
   background-size: cover;
@@ -225,31 +225,31 @@ function submitSearch() {
    "5-15% visibility" per the Thai decorative system, a detail to notice, not a motif. */
 .hero-ornament {
   position: absolute; left: 1.75rem; bottom: 1.75rem; width: 64px; height: 64px;
-  color: var(--color-primary); opacity: 0.55; transform: scaleY(-1); pointer-events: none;
+  color: #f4d99a; opacity: 0.6; transform: scaleY(-1); pointer-events: none;
 }
 @media (max-width: 640px) { .hero-ornament { display: none; } }
 .hero-content { position: relative; padding: 5rem 2.75rem 7rem; max-width: 660px; }
 .hero-eyebrow {
-  color: var(--color-primary); margin: 0 0 1.1rem;
+  color: #f4d99a; margin: 0 0 1.1rem;
 }
-.hero-eyebrow::before { background: var(--color-primary); }
+.hero-eyebrow::before { background: #f4d99a; }
 /* h1.hero-title (element + class) is needed, not just .hero-title, so this beats
    client-theme.css's generic ".client-shell h1.page-heading" rule on specificity —
    otherwise that rule silently wins and the hero renders at the generic (smaller) scale. */
-h1.hero-title { color: var(--color-text); margin: 0 0 1.1rem; font-size: clamp(2.1rem, 4.8vw, 3.4rem); line-height: 1.12; }
-.hero-sub { color: rgba(241, 233, 216, 0.78); font-size: 1.05rem; max-width: 34rem; margin: 0 0 2.25rem; line-height: 1.75; }
+h1.hero-title { color: #fff; margin: 0 0 1.1rem; font-size: clamp(2.1rem, 4.8vw, 3.4rem); line-height: 1.12; }
+.hero-sub { color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; max-width: 34rem; margin: 0 0 2.25rem; line-height: 1.75; }
 .hero-cta-row { display: flex; flex-wrap: wrap; gap: 0.85rem; }
-.hero-ghost-btn { background: transparent; border: 1px solid rgba(241, 233, 216, 0.3); color: var(--color-text); }
+.hero-ghost-btn { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.4); color: #fff; }
 @media (max-width: 640px) {
   .hero-content { padding: 2.5rem 1.5rem 3rem; }
   .hero-sub { margin-bottom: 1.75rem; }
 }
-.hero-ghost-btn:hover { border-color: var(--color-primary); color: var(--color-primary-hover); box-shadow: none; }
+.hero-ghost-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: #fff; color: #fff; box-shadow: none; }
 
 .search-float {
   position: relative; z-index: 2; margin: -3.5rem auto 3.5rem; padding: 1.1rem 1.25rem 1.25rem;
   max-width: 900px;
-  background: rgba(24, 22, 15, 0.72);
+  background: rgba(255, 253, 247, 0.8);
   backdrop-filter: blur(22px) saturate(1.3);
   -webkit-backdrop-filter: blur(22px) saturate(1.3);
   border: 1px solid var(--color-border);
@@ -268,7 +268,7 @@ h1.hero-title { color: var(--color-text); margin: 0 0 1.1rem; font-size: clamp(2
   color: var(--color-text-muted); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 .search-tab:hover { color: var(--color-primary); border-color: var(--color-border); }
-.search-tab.active { background: var(--color-primary); color: #171208; }
+.search-tab.active { background: var(--color-primary); color: #fff; }
 .search-fields {
   display: flex; gap: 0.6rem;
   background: var(--color-surface); border-radius: var(--radius-lg);
@@ -317,7 +317,7 @@ h1.hero-title { color: var(--color-text); margin: 0 0 1.1rem; font-size: clamp(2
 .category-card {
   position: relative; display: flex; flex-direction: column; justify-content: flex-end;
   min-height: 190px; padding: 1.5rem; border-radius: var(--radius-lg); overflow: hidden;
-  color: var(--color-text); box-shadow: var(--shadow-md); border: 1px solid var(--color-border-soft);
+  color: #fff; box-shadow: var(--shadow-md); border: 1px solid var(--color-border-soft);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 .category-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--color-border); }
@@ -327,7 +327,7 @@ h1.hero-title { color: var(--color-text); margin: 0 0 1.1rem; font-size: clamp(2
 }
 .category-icon { position: absolute; top: 1.25rem; right: 1.25rem; width: 30px; height: 30px; fill: rgba(199, 160, 74, 0.6); }
 .category-name { position: relative; font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; margin-bottom: 0.3rem; }
-.category-arrow { position: relative; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.02em; color: var(--color-primary); }
+.category-arrow { position: relative; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.02em; color: var(--color-sand); }
 
 .featured-section { margin-bottom: 3.5rem; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
@@ -359,7 +359,7 @@ h1.hero-title { color: var(--color-text); margin: 0 0 1.1rem; font-size: clamp(2
   position: relative; overflow: hidden; border-radius: var(--radius-xl);
   border: 1px solid var(--color-border);
   background:
-    linear-gradient(100deg, rgba(26, 19, 12, 0.89) 0%, rgba(34, 26, 16, 0.76) 40%, rgba(43, 32, 21, 0.5) 70%, rgba(43, 32, 21, 0.18) 100%),
+    linear-gradient(100deg, rgba(5, 36, 34, 0.7) 0%, rgba(8, 48, 45, 0.56) 40%, rgba(10, 58, 54, 0.3) 70%, rgba(10, 58, 54, 0.1) 100%),
     url('/images/hero-beach-dusk.jpg');
   background-size: cover;
   background-position: center 40%;
@@ -372,11 +372,11 @@ h1.hero-title { color: var(--color-text); margin: 0 0 1.1rem; font-size: clamp(2
   background: radial-gradient(ellipse 60% 80% at 90% 20%, rgba(199, 160, 74, 0.18), transparent 60%);
 }
 .assist-text { position: relative; max-width: 34rem; }
-.assist-eyebrow { color: var(--color-primary); }
-.assist-eyebrow::before { background: var(--color-primary); }
-.assist-title { color: var(--color-text); margin: 0 0 0.85rem; font-size: clamp(1.5rem, 2.8vw, 2rem); }
-.assist-sub { color: rgba(241, 233, 216, 0.78); line-height: 1.75; margin: 0 0 1.85rem; }
+.assist-eyebrow { color: #f4d99a; }
+.assist-eyebrow::before { background: #f4d99a; }
+.assist-title { color: #fff; margin: 0 0 0.85rem; font-size: clamp(1.5rem, 2.8vw, 2rem); }
+.assist-sub { color: rgba(255, 255, 255, 0.85); line-height: 1.75; margin: 0 0 1.85rem; }
 .assist-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
-.assist-phone { display: flex; align-items: center; gap: 0.5rem; color: var(--color-text); font-weight: 700; }
-.assist-phone svg { width: 18px; height: 18px; fill: var(--color-primary); }
+.assist-phone { display: flex; align-items: center; gap: 0.5rem; color: #fff; font-weight: 700; }
+.assist-phone svg { width: 18px; height: 18px; fill: #f4d99a; }
 </style>

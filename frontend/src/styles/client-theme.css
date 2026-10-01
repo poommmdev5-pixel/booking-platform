@@ -1,48 +1,51 @@
-/* Client-facing "Andaman Breeze" theme — Luxury Thai Contemporary: deep sea-sand fading to
-   black, brushed-gold accent, warm ivory text. Everything here is scoped under .client-shell
-   (ClientLayout.vue's root) so it never leaks into the admin console or employee portal,
-   which keep their own themes. Because main.css's generic primitives (.btn, .card,
-   input/select, .status-badge, .auth-card, tables, .empty-state) are all var()-driven,
-   redefining the tokens below re-themes them automatically — no need to touch those
-   rules directly. */
+/* Client-facing "Andaman Breeze" theme — Bright Morning Beach: a sea-indigo/emerald ocean
+   accent playing against bright warm sand, instead of the earlier dark-luxury direction.
+   Everything here is scoped under .client-shell (ClientLayout.vue's root) so it never leaks
+   into the admin console or employee portal, which keep their own themes. Because main.css's
+   generic primitives (.btn, .card, input/select, .status-badge, .auth-card, tables,
+   .empty-state) are all var()-driven, redefining the tokens below re-themes them
+   automatically — no need to touch those rules directly. */
 
 .client-shell {
-  /* Gold system — used for links, active states, borders, CTA buttons. Kept to a single
-     muted brushed-gold family rather than a bright/brassy yellow, which is what tips a
-     black+gold palette into looking cheap instead of expensive. */
-  --color-primary: #c7a04a;
-  --color-primary-hover: #dfbd71;
-  --color-primary-light: rgba(199, 160, 74, 0.14);
-  --color-primary-dark: #8a6a2e;
+  /* Ocean system — a sea-indigo teal with a touch of emerald, used for every interactive/
+     primary surface (links, buttons, selected states). Accent is kept equal to primary
+     rather than a second hue, so the brand reads as one confident color; warm gold/sand
+     stays as a separate decorative-only token (--color-sand below) for texture, not action. */
+  --color-primary: #0e7c74;
+  --color-primary-hover: #0a5f59;
+  --color-primary-light: #e0f2f0;
+  --color-primary-dark: #084a45;
 
-  --color-accent: #c7a04a;
-  --color-accent-hover: #dfbd71;
-  --color-accent-light: rgba(199, 160, 74, 0.14);
+  --color-accent: #0e7c74;
+  --color-accent-hover: #0a5f59;
+  --color-accent-light: #e0f2f0;
 
-  /* Text — brightened warm ivory/champagne (never pure white — a warm-tinted off-white
-     reads as intentional, pure white on a dark ground reads as a default no one set). */
-  --color-text: #faf7ec;
-  --color-text-muted: #ded5b8;
-  --color-text-faint: #ac9f7e;
+  /* Warm gold/sand — decorative only now (dividers, eyebrow rule, grid texture, hero
+     ornament): the "play with bright sand" half of the palette, kept out of the
+     interactive-color role so it never competes with the ocean accent for attention. */
+  --color-sand: #c7a04a;
+  --color-sand-light: rgba(199, 160, 74, 0.14);
 
-  /* Hairlines — gold-tinted on dark surfaces instead of the grey borders a light theme
-     would use; .35 for a visible accent line, .14 for a near-invisible structural seam. */
-  --color-border: rgba(199, 160, 74, 0.35);
-  --color-border-soft: rgba(248, 243, 230, 0.14);
-  /* Surfaces sit visibly lighter than the page background (not just a shade darker) so
-     cards read as "lifted" panels rather than a slightly-different patch of the same void —
-     this is the main lever for "feels airier," short of giving up the dark theme itself. */
-  --color-surface: #4f4026;
-  --color-surface-2: #62502f;
-  --color-bg: #2b2015;
-  --color-cream: #62502f;
+  /* Text — warm dark ink for a bright page, never flat black (a warm-tinted near-black
+     reads as intentional against the sand background the way pure black wouldn't). */
+  --color-text: #2b2318;
+  --color-text-muted: #6b6250;
+  --color-text-faint: #9c927a;
 
-  --color-success: #8fae84;
-  --color-success-bg: rgba(143, 174, 132, 0.14);
-  --color-danger: #d99a8a;
-  --color-danger-bg: rgba(217, 154, 138, 0.14);
-  --color-warning: #d9b877;
-  --color-warning-bg: rgba(217, 184, 119, 0.16);
+  /* Hairlines — warm sand-tinted on the bright surfaces instead of a cool grey. */
+  --color-border: #e8ddc2;
+  --color-border-soft: #f1e9d4;
+  --color-surface: #fffefb;
+  --color-surface-2: #f7f0de;
+  --color-bg: #fbf3e0;
+  --color-cream: #f7f0de;
+
+  --color-success: #15803d;
+  --color-success-bg: #dcfce7;
+  --color-danger: #dc2626;
+  --color-danger-bg: #fee2e2;
+  --color-warning: #b45309;
+  --color-warning-bg: #fef3c7;
 
   /* Tighter radii than a soft "app" theme would use — pill buttons stay fully round
      (set directly on .btn below) but cards/panels read closer to cut stone than rubber. */
@@ -51,22 +54,22 @@
   --radius-lg: 14px;
   --radius-xl: 22px;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 32px 72px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 0 1px rgba(199, 160, 74, 0.35), 0 10px 30px rgba(199, 160, 74, 0.16);
+  --shadow-sm: 0 1px 2px rgba(43, 35, 24, 0.08), 0 1px 3px rgba(43, 35, 24, 0.06);
+  --shadow-md: 0 16px 40px rgba(43, 35, 24, 0.14);
+  --shadow-lg: 0 32px 72px rgba(43, 35, 24, 0.18);
+  --shadow-glow: 0 0 0 1px rgba(14, 124, 116, 0.3), 0 10px 30px rgba(14, 124, 116, 0.14);
 
   --font-display: 'Fraunces', 'Noto Serif Thai', Georgia, serif;
 
   position: relative;
   isolation: isolate;
-  /* Deep sea-sand at the top (where the hero sits) settling to near-black further down —
-     a fixed-height, non-repeating fade layered over a solid base in the gradient's own
-     end color. (background-attachment: fixed would size the gradient to the viewport and
-     then, since the default is background-repeat: repeat, visibly tile it again every
-     viewport-height down any page taller than one screen — this avoids that entirely.) */
-  background-color: #1a130c;
-  background-image: linear-gradient(180deg, #6b5531 0%, #473823 28%, #2b2015 60%, transparent 100%);
+  /* A barely-there gradient between near-white and warm sand — depth without the dark
+     fade the earlier version needed, since there's no "settling to black" here. Still a
+     fixed-height, non-repeating layer over a solid base in its own end color, same
+     technique as before (background-attachment: fixed would size to the viewport and then
+     tile on repeat past one screen's height — this sidesteps that entirely). */
+  background-color: #f5ecd5;
+  background-image: linear-gradient(180deg, #fffdf7 0%, #fbf3e0 55%, #f5ecd5 100%);
   background-repeat: no-repeat;
   background-size: 100% 1400px;
   min-height: 100vh;
@@ -75,7 +78,7 @@
   color: var(--color-text);
 }
 
-/* The same quiet grid-line technique as the admin login's side panel, re-themed in gold —
+/* The same quiet grid-line technique as the admin login's side panel, in warm sand —
    a blueprint/drafting-table texture rather than a repeating decorative motif, masked so
    it concentrates behind the hero and fades out before it reaches the footer. */
 .client-shell::before {
@@ -84,16 +87,16 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.7;
   background-image:
-    linear-gradient(rgba(199, 160, 74, 0.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(199, 160, 74, 0.09) 1px, transparent 1px);
+    linear-gradient(rgba(199, 160, 74, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(199, 160, 74, 0.14) 1px, transparent 1px);
   background-size: 44px 44px;
   mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 35%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 35%, transparent 100%);
 }
-/* Two soft gold glows, echoing a candlelit/ambient-lit interior rather than the flat
-   photo-wash the old resort theme used — a dark theme needs its own light source. */
+/* One soft teal glow (the ocean) and one soft gold glow (the sand) — morning light from
+   two directions rather than the single warm candlelit source the dark theme used. */
 .client-shell::after {
   content: '';
   position: absolute;
@@ -101,15 +104,14 @@
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(circle 560px at 8% 0%, rgba(199, 160, 74, 0.1), transparent 70%),
-    radial-gradient(circle 620px at 100% 35%, rgba(199, 160, 74, 0.07), transparent 70%);
+    radial-gradient(circle 560px at 8% 0%, rgba(14, 124, 116, 0.09), transparent 70%),
+    radial-gradient(circle 620px at 100% 35%, rgba(199, 160, 74, 0.1), transparent 70%);
 }
 
 .ambient-watermark { display: none; }
 
-/* Re-tune the shared primitives' shape/motion for the luxury feel: pill CTAs with a slow
-   gold sweep on hover (not a snappy SaaS-button bounce), hairline borders instead of fills
-   on secondary actions. */
+/* Re-tune the shared primitives' shape/motion: pill CTAs with a slow sheen on hover (not a
+   snappy SaaS-button bounce), hairline borders instead of fills on secondary actions. */
 .client-shell .btn {
   position: relative;
   overflow: hidden;
@@ -128,10 +130,10 @@
 .client-shell .btn-accent {
   background: var(--color-accent);
   border-color: var(--color-accent);
-  color: #171208;
-  box-shadow: 0 10px 26px rgba(199, 160, 74, 0.22);
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(14, 124, 116, 0.25);
 }
-.client-shell .btn-accent:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); box-shadow: 0 14px 34px rgba(199, 160, 74, 0.32); }
+.client-shell .btn-accent:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); box-shadow: 0 14px 34px rgba(14, 124, 116, 0.34); }
 /* A slow diagonal sheen that sweeps across on hover — the one "shimmer" effect the brief
    explicitly allows, used on exactly one element type so it stays a signature, not noise. */
 .client-shell .btn-accent::after {
@@ -190,7 +192,7 @@
   content: '';
   width: 22px;
   height: 1px;
-  background: var(--color-primary);
+  background: var(--color-sand);
 }
 .client-shell .page-heading {
   font-family: var(--font-display);
@@ -211,10 +213,10 @@
   font-weight: 700;
   letter-spacing: 0.03em;
   background: var(--color-primary-light);
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   border: 1px solid var(--color-border);
 }
-.client-shell .pill-accent { background: var(--color-accent-light); color: var(--color-accent-hover); }
+.client-shell .pill-accent { background: var(--color-sand-light); color: #8a6a2e; }
 
 .client-shell .surface-panel {
   background: var(--color-surface);
@@ -223,7 +225,7 @@
   box-shadow: var(--shadow-sm);
 }
 
-/* Loading skeleton shimmer, tuned for a dark surface. */
+/* Loading skeleton shimmer, tuned for a bright surface. */
 .client-shell .skeleton {
   position: relative;
   overflow: hidden;
@@ -233,7 +235,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, transparent 30%, rgba(241, 233, 216, 0.08) 50%, transparent 70%);
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
   animation: client-shimmer 1.4s ease-in-out infinite;
 }
 @keyframes client-shimmer {
@@ -245,8 +247,9 @@
 /* A slim rule flanked by a diamond-within-diamond mark — a simplified lotus-bud silhouette
    used wherever a hard section break needs a quiet, specifically-Thai full stop rather than
    a plain <hr>. Kept to line weight + a single accent shape: a louder ornament would read
-   as the page's main event instead of a supporting detail. */
-.thai-divider { display: flex; align-items: center; justify-content: center; gap: 0.85rem; color: var(--color-primary); }
+   as the page's main event instead of a supporting detail. Sand-colored (not the ocean
+   primary) so it reads as the same decorative family as the eyebrow rule and grid texture. */
+.thai-divider { display: flex; align-items: center; justify-content: center; gap: 0.85rem; color: var(--color-sand); }
 .thai-divider .divider-line { flex: 1; max-width: 72px; height: 1px; background: linear-gradient(90deg, transparent, currentColor); }
 .thai-divider .divider-line:last-child { background: linear-gradient(90deg, currentColor, transparent); }
 .thai-divider svg { width: 14px; height: 14px; flex-shrink: 0; }

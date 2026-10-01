@@ -154,7 +154,7 @@ aside {
 .brand-mark {
   display: inline-flex; align-items: center; justify-content: center;
   width: 30px; height: 30px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--color-accent, #c7a04a), var(--color-primary, #ad8a3e));
+  background: linear-gradient(135deg, var(--color-accent, #0e7c74), var(--color-primary, #084a45));
   font-weight: 800; font-size: 0.95rem;
 }
 nav { display: flex; flex-direction: column; gap: 0.25rem; flex: 1; }
@@ -166,7 +166,7 @@ nav a {
 }
 nav a svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
 nav a:hover { background: #473a22; color: #fff; }
-nav a.router-link-active { background: var(--color-primary, #ad8a3e); color: #fff; }
+nav a.router-link-active { background: var(--color-primary, #0e7c74); color: #fff; }
 .nav-link-with-badge { position: relative; }
 .nav-badge {
   margin-left: auto; flex-shrink: 0; min-width: 19px; height: 19px; padding: 0 5px; border-radius: 999px;

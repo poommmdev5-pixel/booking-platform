@@ -1,7 +1,7 @@
-/* Admin "Andaman Breeze" theme — same gold/sea-sand brand family as client-theme.css
+/* Admin "Andaman Breeze" theme — same ocean-teal/sea-sand brand family as client-theme.css
    (the public site), so the back office reads as the same product instead of a bolted-on
    generic dashboard, while staying a light, high-contrast working surface — a dense admin
-   table/form screen is the wrong place for the client site's cinematic dark treatment.
+   table/form screen is the wrong place for the client site's cinematic treatment.
    Scoped under .admin-shell (AdminLayout.vue's root, and Login.vue's root, since
    /admin/login is a top-level route outside AdminLayout) so it never leaks into the
    client-facing .client-shell, which keeps its own copy of these tokens independently.
@@ -9,18 +9,14 @@
    are all var()-driven, redefining the tokens below re-themes them automatically — no
    need to touch those rules directly. */
 .admin-shell {
-  /* A deeper, darker gold than the client site's accent — the client's bright brushed-gold
-     reads as low-contrast "washed out" when used as small body-sized text/links on a white
-     admin background, so primary here is a richer bronze instead, with the bright gold kept
-     for the accent role (badges, highlight chips) where it sits on a tinted background. */
-  --color-primary: #ad8a3e;
-  --color-primary-hover: #8f7128;
-  --color-primary-light: #faf3e2;
-  --color-primary-dark: #6b5726;
+  --color-primary: #0e7c74;
+  --color-primary-hover: #0a5f59;
+  --color-primary-light: #e0f2f0;
+  --color-primary-dark: #084a45;
 
-  --color-accent: #c7a04a;
-  --color-accent-hover: #ad8a3e;
-  --color-accent-light: #f7edd7;
+  --color-accent: #0e7c74;
+  --color-accent-hover: #0a5f59;
+  --color-accent-light: #e0f2f0;
 
   /* Warm sand-tinted neutrals in place of main.css's cool slate greys — this is what
      actually ties the admin screen to the client site's palette at a glance, since most

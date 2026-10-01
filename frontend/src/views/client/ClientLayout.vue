@@ -60,8 +60,8 @@ async function onLogout() {
               <path d="M5 20c1 0 1.8.4 2.6 1c1 .8 2 1.1 3.4 1.1s2.4-.3 3.4-1.1c1-.8 2-1.1 3.4-1.1s2.4.3 3.4 1.1c.8.6 1.6 1 2.6 1" stroke="#c7a04a" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.55" />
               <defs>
                 <linearGradient id="brandGrad" x1="0" y1="0" x2="32" y2="32">
-                  <stop offset="0" stop-color="#211c14" />
-                  <stop offset="1" stop-color="#2b2015" />
+                  <stop offset="0" stop-color="#0e7c74" />
+                  <stop offset="1" stop-color="#084a45" />
                 </linearGradient>
               </defs>
             </svg>
@@ -192,7 +192,7 @@ async function onLogout() {
 
 <style scoped>
 .site-header {
-  background: rgba(43, 32, 21, 0.72);
+  background: rgba(255, 253, 247, 0.78);
   backdrop-filter: blur(14px) saturate(1.1);
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
   border-bottom: 1px solid var(--color-border-soft);
@@ -201,7 +201,7 @@ async function onLogout() {
   z-index: 20;
   transition: background 0.25s ease, box-shadow 0.25s ease, border-radius 0.25s ease;
 }
-.site-header.scrolled { background: rgba(43, 32, 21, 0.92); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35); }
+.site-header.scrolled { background: rgba(255, 253, 247, 0.95); box-shadow: 0 10px 28px rgba(43, 35, 24, 0.12); }
 .header-accent-bar { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--color-primary) 50%, transparent 100%); opacity: 0.6; }
 
 /* Floating pill navbar — wide desktop only. Between the hamburger breakpoint (781px) and
@@ -218,7 +218,7 @@ async function onLogout() {
     box-shadow: var(--shadow-lg);
     overflow: hidden;
   }
-  .site-header.scrolled { box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); }
+  .site-header.scrolled { box-shadow: 0 16px 40px rgba(43, 35, 24, 0.16); }
   .header-accent-bar { display: none; }
 }
 .bar { display: flex; align-items: center; justify-content: space-between; padding-top: 0.8rem; padding-bottom: 0.8rem; gap: 0.75rem; }
@@ -285,24 +285,23 @@ nav { display: flex; align-items: center; gap: 0.4rem; }
 
 .drawer-head {
   position: relative; overflow: hidden;
-  background: linear-gradient(135deg, var(--color-surface-2) 0%, var(--color-bg) 100%);
-  border-bottom: 1px solid var(--color-border-soft);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   padding: 1.35rem 1rem;
   display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem;
 }
 .drawer-head::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 70% 60% at 90% 0%, rgba(199, 160, 74, 0.22), transparent 60%);
+  background: radial-gradient(ellipse 70% 60% at 90% 0%, rgba(199, 160, 74, 0.3), transparent 60%);
 }
 .drawer-brand { position: relative; display: flex; align-items: center; gap: 0.55rem; min-width: 0; flex: 1; }
 .drawer-brand .brand-mark { width: 34px; height: 34px; flex-shrink: 0; }
 .drawer-brand .brand-mark svg { width: 100%; height: 100%; }
 .drawer-brand-copy { display: flex; flex-direction: column; min-width: 0; }
 .drawer-brand-text {
-  font-family: var(--font-display); font-weight: 600; font-size: 0.96rem; color: var(--color-text); line-height: 1.25;
+  font-family: var(--font-display); font-weight: 600; font-size: 0.96rem; color: #fff; line-height: 1.25;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.drawer-brand-tagline { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-primary); }
+.drawer-brand-tagline { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-sand); }
 .drawer-close {
   position: relative; flex-shrink: 0; width: 30px; height: 30px; border-radius: 999px; border: none;
   background: rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; cursor: pointer;
@@ -324,7 +323,7 @@ nav { display: flex; align-items: center; gap: 0.4rem; }
 }
 .drawer-link-icon svg { width: 18px; height: 18px; fill: var(--color-primary); }
 .drawer-link.router-link-active .drawer-link-icon { background: var(--color-primary); }
-.drawer-link.router-link-active .drawer-link-icon svg { fill: #171208; }
+.drawer-link.router-link-active .drawer-link-icon svg { fill: #fff; }
 .drawer-link-text {
   flex: 1; font-weight: 700; font-size: 0.92rem; line-height: 1.3;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
