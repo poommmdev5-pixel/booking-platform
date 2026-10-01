@@ -1,6 +1,7 @@
 import { useAuth } from '../composables/useAuth';
 import { useToast } from '../composables/useToast';
 import { i18n } from '../i18n';
+import { translateApiError } from '../i18n/apiErrors';
 
 const { showToast } = useToast();
 // /auth/ calls (login, refresh, logout) get their own dedicated UI feedback — a generic
@@ -53,7 +54,11 @@ export async function apiRequest(path, options = {}) {
   const data = res.status === 204 ? null : await res.json().catch(() => null);
   const silent = path.startsWith(SILENT_PREFIX) || options.silent;
   if (!res.ok) {
-    const message = data?.message || `Request failed (${res.status})`;
+    // The backend's error messages are English-only (see frontend/src/i18n/apiErrors.js
+    // for why) — translate here, once, so every caller that reads err.message (toasts,
+    // inline form errors alike) sees the viewer's own language instead of raw English.
+    const rawMessage = data?.message || `Request failed (${res.status})`;
+    const message = translateApiError(rawMessage, i18n.global.locale.value);
     if (!silent) showToast(message, 'error');
     throw new Error(message);
   }

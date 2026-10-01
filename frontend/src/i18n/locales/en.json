@@ -13,6 +13,7 @@
     "cancel": "Cancel booking", "cancelReason": "Cancellation reason",
     "selectCheckIn": "Select check-in date", "selectCheckOut": "Select check-out date",
     "selectTime": "Select a time", "durationTooLate": "This duration runs past midnight — pick an earlier start time",
+    "timeInPast": "That time has already passed — please choose a later time",
     "rangeHasClosedDay": "That range includes a closed day — please pick a different check-out date",
     "noStaffForDates": "No staff available for the selected dates — please choose different dates",
     "rescheduleAction": "Reschedule", "noticeTooLate": "Requires at least {hours}h notice before the appointment", "lookupAnother": "Look up another booking",

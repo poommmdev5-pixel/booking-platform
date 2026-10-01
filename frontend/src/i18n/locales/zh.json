@@ -13,6 +13,7 @@
     "cancel": "取消预订", "cancelReason": "取消原因",
     "selectCheckIn": "选择入住日期", "selectCheckOut": "选择退房日期",
     "selectTime": "选择时间", "durationTooLate": "此时长会超过午夜，请选择更早的开始时间",
+    "timeInPast": "所选时间已过，请选择其他时间",
     "rangeHasClosedDay": "所选日期范围中包含休息日，请重新选择退房日期",
     "noStaffForDates": "所选日期没有可用员工，请选择其他日期",
     "rescheduleAction": "改期", "noticeTooLate": "需提前至少 {hours} 小时通知", "lookupAnother": "查询其他预订",

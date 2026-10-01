@@ -6,6 +6,8 @@ import { productsApi } from '../../api/products';
 import { calendarApi } from '../../api/calendar';
 import { bookingsApi } from '../../api/bookings';
 import { paymentsApi } from '../../api/payments';
+import { customersApi } from '../../api/customers';
+import { useAuth } from '../../composables/useAuth';
 import { formatCurrency, formatMinutes, formatDate } from '../../i18n';
 import { usePagination } from '../../composables/usePagination';
 import { useLocaleRefetch } from '../../composables/useLocaleRefetch';
@@ -27,6 +29,7 @@ const STRIPE_APPEARANCE = {
 };
 
 const { t: translate, locale } = useI18n();
+const { isCustomer } = useAuth();
 
 const props = defineProps({ productId: { type: String, required: true } });
 
@@ -132,6 +135,19 @@ onMounted(async () => {
   if (product.value.bookingType === 'session') await loadSessionDates();
   else if (product.value.bookingType === 'stay' || product.value.bookingType === 'stay_session') {
     await loadStayMonth(staySelectedMonth.value);
+  }
+  // Pre-fill from the account for a logged-in customer so they're not asked to retype
+  // what they already gave us at registration — still just a starting value, editable
+  // like any other field, never locked.
+  if (isCustomer.value) {
+    try {
+      const me = await customersApi.me();
+      guestName.value = me.name || '';
+      guestEmail.value = me.email || '';
+      guestPhone.value = me.phone || '';
+    } catch {
+      // Non-critical convenience — fall back to the normal blank guest form.
+    }
   }
   try {
     const cfg = await paymentsApi.getConfig();
@@ -304,12 +320,28 @@ function computedStaySessionTimeEnd() {
   return `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
 }
 
+// Day-level past dates are already excluded server-side (stay calendar's isOpen checks
+// date >= today), but that leaves today's own clock-time unchecked client-side — pick
+// 09:00 at 2pm today and the only feedback used to be a rejection at final submit. Check
+// immediately so the customer finds out before going any further, not after.
+const staySessionPastTimeError = ref('');
+function checkStaySessionPastTime() {
+  staySessionPastTimeError.value = '';
+  if (!staySessionDate.value || !staySessionTimeStart.value) return;
+  const now = new Date();
+  const todayStr = toLocalISODate(now);
+  if (staySessionDate.value !== todayStr) return;
+  const nowTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+  if (staySessionTimeStart.value <= nowTime) staySessionPastTimeError.value = translate('booking.timeInPast');
+}
+
 async function refreshStaySessionEmployees() {
   selectedStaySessionEmployeeId.value = null;
   staySessionEmployees.value = [];
   staySessionEmployeesLoaded.value = false;
+  checkStaySessionPastTime();
   const timeEnd = computedStaySessionTimeEnd();
-  if (!staySessionDate.value || !staySessionTimeStart.value || !timeEnd) return;
+  if (!staySessionDate.value || !staySessionTimeStart.value || !timeEnd || staySessionPastTimeError.value) return;
   staySessionEmployees.value = await calendarApi.getStaySessionEmployees(
     product.value.id,
     staySessionDate.value,
@@ -504,7 +536,13 @@ function canProceedStep1() {
     return !!stayCheckIn.value && !!stayCheckOut.value;
   }
   if (product.value.bookingType === 'stay_session') {
-    return !!staySessionDate.value && !!staySessionTimeStart.value && !!computedStaySessionTimeEnd() && !!selectedStaySessionEmployeeId.value;
+    return (
+      !!staySessionDate.value &&
+      !!staySessionTimeStart.value &&
+      !!computedStaySessionTimeEnd() &&
+      !!selectedStaySessionEmployeeId.value &&
+      !staySessionPastTimeError.value
+    );
   }
   return false;
 }
@@ -858,14 +896,15 @@ async function submit() {
                 {{ $t('booking.selectTime') }}
                 <input type="time" v-model="staySessionTimeStart" @change="refreshStaySessionEmployees" />
               </label>
-              <div v-if="computedStaySessionTimeEnd()" class="stay-range-pill">
+              <p v-if="staySessionPastTimeError" class="error">{{ staySessionPastTimeError }}</p>
+              <div v-else-if="computedStaySessionTimeEnd()" class="stay-range-pill">
                 <span>{{ formatDate(staySessionDate) }}</span>
                 <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
                 <span>{{ staySessionTimeStart }} – {{ computedStaySessionTimeEnd() }}</span>
               </div>
-              <p v-else class="empty-state">{{ $t('booking.durationTooLate') }}</p>
+              <p v-else class="error">{{ $t('booking.durationTooLate') }}</p>
 
-              <template v-if="computedStaySessionTimeEnd()">
+              <template v-if="computedStaySessionTimeEnd() && !staySessionPastTimeError">
                 <p v-if="staySessionEmployeesLoaded && staySessionEmployees.length === 0" class="empty-state">{{ $t('booking.noStaffForDates') }}</p>
                 <template v-else-if="staySessionEmployeesLoaded">
                   <p class="picker-label employee-picker-label">{{ $t('booking.selectEmployee') }}</p>

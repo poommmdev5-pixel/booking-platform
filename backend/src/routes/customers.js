@@ -1,10 +1,25 @@
 const { Router } = require('express');
 const { query } = require('../db');
-const { authenticate, requireAdmin } = require('../middleware/auth');
+const { authenticate, requireAdmin, requireCustomer } = require('../middleware/auth');
 const { notFound } = require('../utils/httpError');
 const asyncHandler = require('../utils/asyncHandler');
 
 const router = Router();
+
+// A logged-in customer's own profile — lets the booking flow pre-fill name/email/phone
+// from the account instead of asking them to retype what they already gave us at
+// registration. Mounted before the admin-only gate below since this one is self-service.
+router.get(
+  '/me',
+  authenticate,
+  requireCustomer,
+  asyncHandler(async (req, res) => {
+    const [customer] = await query('SELECT id, name, email, phone FROM customers WHERE id = ?', [req.user.sub]);
+    if (!customer) throw notFound('Customer not found');
+    res.json(customer);
+  }),
+);
+
 router.use(authenticate, requireAdmin);
 
 router.get(

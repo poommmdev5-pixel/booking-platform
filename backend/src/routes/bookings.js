@@ -966,6 +966,57 @@ router.patch(
   }),
 );
 
+// Logged-in customer's own reschedule action (MyBookings.vue) — same policy and
+// computeRescheduleUpdate/applyRescheduleUpdate path the guest /lookup/reschedule uses,
+// just identified by session + ownership instead of reference+email.
+router.patch(
+  '/me/:id/reschedule',
+  authenticate,
+  requireCustomer,
+  asyncHandler(async (req, res) => {
+    const policy = await getBookingPolicy();
+    if (!policy.allowSelfReschedule) throw forbidden('Self-service rescheduling is not available.');
+
+    const outcome = await withTransaction(async (cx) => {
+      const [[row]] = await cx.query('SELECT * FROM bookings WHERE id = ? FOR UPDATE', [req.params.id]);
+      if (!row) throw notFound('Booking not found');
+      if (row.customer_id !== req.user.sub) throw forbidden('Not your booking');
+      if (!['pending', 'confirmed'].includes(row.status)) throw badRequest('This booking can no longer be rescheduled.');
+
+      const hoursUntil = (new Date(`${row.date_start}T00:00:00Z`) - Date.now()) / (1000 * 60 * 60);
+      if (hoursUntil < policy.rescheduleHoursBefore) {
+        throw forbidden(`Rescheduling requires at least ${policy.rescheduleHoursBefore}h notice`);
+      }
+
+      const [[product]] = await cx.query('SELECT * FROM products WHERE id = ?', [row.product_id]);
+      if (!product || product.status !== 'active') throw badRequest('This product is no longer available.');
+      const update = await computeRescheduleUpdate(cx, row, product, req.body);
+      const previousSlotLabel = formatSlotLabel(row.date_start, row.date_end, row.time_start);
+
+      if (policy.requireApprovalForReschedule) {
+        const [[existingRequest]] = await cx.query('SELECT id FROM booking_change_requests WHERE booking_id = ? AND status = "pending" FOR UPDATE', [row.id]);
+        if (existingRequest) throw badRequest('This booking already has a pending request awaiting admin review.');
+        const requestedSummary = formatSlotLabel(update.dateStart, update.dateEnd, update.timeStart);
+        await cx.query('INSERT INTO booking_change_requests (booking_id, type, payload) VALUES (?, "reschedule", ?)', [
+          row.id,
+          JSON.stringify({ body: req.body, requestedSummary }),
+        ]);
+        return { bookingId: row.id, pending: true, requestedSummary };
+      }
+
+      await applyRescheduleUpdate(cx, row.id, update);
+      return { bookingId: row.id, pending: false, previousSlotLabel, employeeChanged: update.employeeId !== row.employee_id };
+    });
+
+    if (outcome.pending) {
+      notifyChangeRequestSubmitted(outcome.bookingId, 'reschedule', { requestedSummary: outcome.requestedSummary });
+    } else {
+      notifyRescheduled(outcome.bookingId, outcome.previousSlotLabel, outcome.employeeChanged);
+    }
+    res.json({ success: true, pending: outcome.pending });
+  }),
+);
+
 router.get(
   '/',
   authenticate,

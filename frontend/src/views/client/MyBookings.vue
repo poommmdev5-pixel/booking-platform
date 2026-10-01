@@ -2,8 +2,10 @@
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { bookingsApi } from '../../api/bookings';
+import { settingsApi } from '../../api/settings';
 import { formatCurrency, formatDate } from '../../i18n';
 import StatusBadge from '../../components/StatusBadge.vue';
+import RescheduleModal from '../../components/RescheduleModal.vue';
 import { usePagination } from '../../composables/usePagination';
 import { useLocaleRefetch } from '../../composables/useLocaleRefetch';
 import { useToast } from '../../composables/useToast';
@@ -19,6 +21,27 @@ const { page, totalPages, pageItems: pageBookings } = usePagination(bookings, 6)
 const cancelTarget = ref(null);
 const cancelReason = ref('');
 const cancelling = ref(false);
+
+const policy = ref({
+  allowSelfCancel: true,
+  allowSelfReschedule: true,
+  cancellationHoursBefore: 24,
+  rescheduleHoursBefore: 24,
+});
+settingsApi
+  .getBookingPolicyPublic()
+  .then((p) => (policy.value = p))
+  .catch(() => {});
+
+function hoursUntil(dateStr) {
+  if (!dateStr) return Infinity;
+  return (new Date(`${dateStr}T00:00:00Z`) - Date.now()) / (1000 * 60 * 60);
+}
+const canReschedule = (b) =>
+  !b.pendingChangeRequest &&
+  ['pending', 'confirmed'].includes(b.status) &&
+  policy.value.allowSelfReschedule &&
+  hoursUntil(b.dateStart) >= policy.value.rescheduleHoursBefore;
 
 async function load() {
   loading.value = true;
@@ -48,6 +71,22 @@ async function confirmCancel() {
   } finally {
     cancelling.value = false;
   }
+}
+
+// ---- Reschedule ----
+const rescheduleTarget = ref(null);
+function openReschedule(b) {
+  rescheduleTarget.value = b;
+}
+function closeReschedule() {
+  rescheduleTarget.value = null;
+}
+async function submitReschedule(payload) {
+  const res = await bookingsApi.rescheduleMine(rescheduleTarget.value.id, payload);
+  rescheduleTarget.value = null;
+  showToast(t(res.pending ? 'booking.rescheduleRequestSubmitted' : 'booking.rescheduleSuccess'), 'success');
+  await load();
+  return res;
 }
 
 useLocaleRefetch(load);
@@ -83,18 +122,29 @@ onMounted(load);
           <StatusBadge :status="b.status" />
           <p class="booking-total">{{ formatCurrency(b.totalPrice) }}</p>
           <p v-if="b.pendingChangeRequest" class="pending-note">⏳ {{ $t('booking.pendingCancelShort') }}</p>
-          <button
-            v-else-if="b.status === 'pending' || b.status === 'confirmed'"
-            class="btn btn-secondary btn-sm"
-            @click="openCancel(b)"
-          >
-            {{ $t('booking.cancel') }}
-          </button>
+          <template v-else-if="b.status === 'pending' || b.status === 'confirmed'">
+            <div class="row-actions">
+              <button v-if="canReschedule(b)" class="btn btn-secondary btn-sm" @click="openReschedule(b)">
+                {{ $t('booking.rescheduleAction') }}
+              </button>
+              <button class="btn btn-secondary btn-sm" @click="openCancel(b)">
+                {{ $t('booking.cancel') }}
+              </button>
+            </div>
+          </template>
         </div>
       </div>
     </div>
     <Pagination :page="page" :total-pages="totalPages" @update:page="page = $event" />
   </template>
+
+  <RescheduleModal
+    v-if="rescheduleTarget"
+    :booking="rescheduleTarget"
+    :submit="submitReschedule"
+    @close="closeReschedule"
+    @success="closeReschedule"
+  />
 
   <div v-if="cancelTarget" class="modal-backdrop" @click.self="closeCancel">
     <div class="modal-card surface-panel">
@@ -125,6 +175,7 @@ onMounted(load);
 .booking-date { display: flex; align-items: center; gap: 0.4rem; margin: 0; font-size: 0.85rem; color: var(--color-text-muted); }
 .booking-date svg { width: 15px; height: 15px; fill: var(--color-accent); flex-shrink: 0; }
 .booking-side-info { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; flex-shrink: 0; }
+.row-actions { display: flex; gap: 0.5rem; }
 .booking-total { margin: 0; font-weight: 800; font-size: 1.05rem; color: var(--color-primary); }
 .pending-note { margin: 0; font-size: 0.76rem; font-weight: 700; color: #92400e; }
 

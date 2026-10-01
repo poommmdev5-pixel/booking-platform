@@ -53,7 +53,10 @@ function formatMoney(amount) {
 function formatDateLabel(dateStr) {
   if (!dateStr) return '';
   const [y, m, d] = dateStr.split('-').map(Number);
-  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+  // Force the Gregorian calendar — plain 'th-TH' renders พ.ศ. (Buddhist era), which
+  // would read as wrong next to the Gregorian years used everywhere else (admin panel,
+  // the client site). Mirrors the same fix already applied in bookings.js/i18n/index.js.
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('th-TH-u-ca-gregory', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 
 function statusBadge(status) {
