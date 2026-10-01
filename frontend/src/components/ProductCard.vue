@@ -58,8 +58,8 @@ const TYPE_ICON = {
 .product-card:hover .thumb img { transform: scale(1.06); }
 .thumb-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, var(--color-primary-light), var(--color-cream)); }
 .thumb-tag {
-  position: absolute; left: 0.7rem; bottom: 0.7rem; background: rgba(15, 45, 41, 0.82); color: #fff;
-  font-size: 0.72rem; font-weight: 700; padding: 0.35rem 0.7rem; border-radius: 999px; backdrop-filter: blur(4px);
+  position: absolute; left: 0.7rem; bottom: 0.7rem; background: rgba(11, 10, 7, 0.78); color: var(--color-text);
+  border: 1px solid var(--color-border); font-size: 0.72rem; font-weight: 700; padding: 0.35rem 0.7rem; border-radius: 999px; backdrop-filter: blur(4px);
 }
 .thumb-type-badge { display: none; }
 .body { padding: 1rem 1.1rem 1.15rem; }
@@ -93,9 +93,9 @@ const TYPE_ICON = {
   .thumb-type-badge {
     display: flex; align-items: center; justify-content: center; position: absolute;
     right: 0.4rem; bottom: 0.4rem; width: 22px; height: 22px; border-radius: 999px;
-    background: var(--color-primary); box-shadow: 0 1px 4px rgba(15, 45, 41, 0.35);
+    background: var(--color-primary); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   }
-  .thumb-type-badge svg { width: 12px; height: 12px; fill: #fff; }
+  .thumb-type-badge svg { width: 12px; height: 12px; fill: #171208; }
 
   .body { padding: 0; flex: 1; min-width: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 0.3rem; }
   .body h3 {

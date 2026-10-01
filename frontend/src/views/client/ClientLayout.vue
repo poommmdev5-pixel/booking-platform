@@ -48,21 +48,20 @@ async function onLogout() {
 
 <template>
   <div class="client-shell">
-    <div class="ambient-watermark" aria-hidden="true"></div>
     <header class="site-header" :class="{ scrolled: isScrolled }">
       <div class="header-accent-bar"></div>
       <div class="container bar">
         <router-link to="/" class="brand">
           <span class="brand-mark">
             <svg viewBox="0 0 32 32" fill="none">
-              <circle cx="16" cy="16" r="16" fill="url(#brandGrad)" />
-              <circle cx="21.5" cy="10.5" r="3" fill="#fff" opacity="0.9" />
-              <path d="M5 15c1 0 1.8.4 2.6 1c1 .8 2 1.1 3.4 1.1s2.4-.3 3.4-1.1c1-.8 2-1.1 3.4-1.1s2.4.3 3.4 1.1c.8.6 1.6 1 2.6 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none" />
-              <path d="M5 20c1 0 1.8.4 2.6 1c1 .8 2 1.1 3.4 1.1s2.4-.3 3.4-1.1c1-.8 2-1.1 3.4-1.1s2.4.3 3.4 1.1c.8.6 1.6 1 2.6 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.65" />
+              <circle cx="16" cy="16" r="15.25" fill="url(#brandGrad)" stroke="#c7a04a" stroke-width="0.75" />
+              <circle cx="21.5" cy="10.5" r="2.4" fill="#c7a04a" opacity="0.9" />
+              <path d="M5 15c1 0 1.8.4 2.6 1c1 .8 2 1.1 3.4 1.1s2.4-.3 3.4-1.1c1-.8 2-1.1 3.4-1.1s2.4.3 3.4 1.1c.8.6 1.6 1 2.6 1" stroke="#c7a04a" stroke-width="1.4" stroke-linecap="round" fill="none" />
+              <path d="M5 20c1 0 1.8.4 2.6 1c1 .8 2 1.1 3.4 1.1s2.4-.3 3.4-1.1c1-.8 2-1.1 3.4-1.1s2.4.3 3.4 1.1c.8.6 1.6 1 2.6 1" stroke="#c7a04a" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.55" />
               <defs>
                 <linearGradient id="brandGrad" x1="0" y1="0" x2="32" y2="32">
-                  <stop offset="0" stop-color="#12938a" />
-                  <stop offset="1" stop-color="#0a4a45" />
+                  <stop offset="0" stop-color="#211c14" />
+                  <stop offset="1" stop-color="#0b0a07" />
                 </linearGradient>
               </defs>
             </svg>
@@ -107,10 +106,10 @@ async function onLogout() {
             <div class="drawer-brand">
               <span class="brand-mark">
                 <svg viewBox="0 0 32 32" fill="none">
-                  <circle cx="16" cy="16" r="16" fill="rgba(255,255,255,0.16)" />
-                  <circle cx="21.5" cy="10.5" r="3" fill="#fff" opacity="0.9" />
-                  <path d="M5 15c1 0 1.8.4 2.6 1c1 .8 2 1.1 3.4 1.1s2.4-.3 3.4-1.1c1-.8 2-1.1 3.4-1.1s2.4.3 3.4 1.1c.8.6 1.6 1 2.6 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none" />
-                  <path d="M5 20c1 0 1.8.4 2.6 1c1 .8 2 1.1 3.4 1.1s2.4-.3 3.4-1.1c1-.8 2-1.1 3.4-1.1s2.4.3 3.4 1.1c.8.6 1.6 1 2.6 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.65" />
+                  <circle cx="16" cy="16" r="15.25" fill="rgba(199,160,74,0.14)" stroke="#c7a04a" stroke-width="0.75" />
+                  <circle cx="21.5" cy="10.5" r="2.4" fill="#c7a04a" opacity="0.9" />
+                  <path d="M5 15c1 0 1.8.4 2.6 1c1 .8 2 1.1 3.4 1.1s2.4-.3 3.4-1.1c1-.8 2-1.1 3.4-1.1s2.4.3 3.4 1.1c.8.6 1.6 1 2.6 1" stroke="#c7a04a" stroke-width="1.4" stroke-linecap="round" fill="none" />
+                  <path d="M5 20c1 0 1.8.4 2.6 1c1 .8 2 1.1 3.4 1.1s2.4-.3 3.4-1.1c1-.8 2-1.1 3.4-1.1s2.4.3 3.4 1.1c.8.6 1.6 1 2.6 1" stroke="#c7a04a" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.55" />
                 </svg>
               </span>
               <span class="drawer-brand-copy">
@@ -179,6 +178,11 @@ async function onLogout() {
           <p v-if="businessInfo.phone">{{ businessInfo.phone }}</p>
         </div>
       </div>
+      <div class="thai-divider footer-divider" aria-hidden="true">
+        <span class="divider-line"></span>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 17 12 12 22 7 12Z M12 7.2 14.6 12 12 16.8 9.4 12Z" fill-rule="evenodd"/></svg>
+        <span class="divider-line"></span>
+      </div>
       <div class="container footer-bottom">
         <span>© {{ new Date().getFullYear() }} {{ businessInfo.name || 'Andaman Breeze' }} · {{ $t('footer.rights') }}</span>
       </div>
@@ -188,16 +192,17 @@ async function onLogout() {
 
 <style scoped>
 .site-header {
-  background: rgba(250, 247, 240, 0.86);
-  backdrop-filter: blur(10px);
+  background: rgba(11, 10, 7, 0.72);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
   border-bottom: 1px solid var(--color-border-soft);
   position: sticky;
   top: 0;
   z-index: 20;
   transition: background 0.25s ease, box-shadow 0.25s ease, border-radius 0.25s ease;
 }
-.site-header.scrolled { background: rgba(250, 247, 240, 0.97); box-shadow: 0 10px 28px rgba(15, 45, 41, 0.1); }
-.header-accent-bar { height: 3px; background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 55%, var(--color-primary) 100%); }
+.site-header.scrolled { background: rgba(11, 10, 7, 0.92); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35); }
+.header-accent-bar { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--color-primary) 50%, transparent 100%); opacity: 0.6; }
 
 /* Floating pill navbar — wide desktop only. Between the hamburger breakpoint (781px) and
    here, the nav links already show in full but there isn't quite enough room for them
@@ -213,12 +218,12 @@ async function onLogout() {
     box-shadow: var(--shadow-lg);
     overflow: hidden;
   }
-  .site-header.scrolled { box-shadow: 0 16px 40px rgba(15, 45, 41, 0.16); }
+  .site-header.scrolled { box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); }
   .header-accent-bar { display: none; }
 }
 .bar { display: flex; align-items: center; justify-content: space-between; padding-top: 0.8rem; padding-bottom: 0.8rem; gap: 0.75rem; }
 .brand { display: inline-flex; align-items: center; gap: 0.7rem; color: var(--color-primary-dark); min-width: 0; }
-.brand-mark { width: 38px; height: 38px; flex-shrink: 0; display: block; filter: drop-shadow(0 4px 10px rgba(15, 74, 69, 0.28)); transition: transform 0.2s ease; }
+.brand-mark { width: 38px; height: 38px; flex-shrink: 0; display: block; filter: drop-shadow(0 4px 10px rgba(199, 160, 74, 0.25)); transition: transform 0.2s ease; }
 .brand:hover .brand-mark { transform: rotate(-6deg) scale(1.05); }
 .brand-mark svg { width: 100%; height: 100%; display: block; }
 .brand-copy { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
@@ -250,7 +255,7 @@ nav { display: flex; align-items: center; gap: 0.4rem; }
   transition: background 0.15s ease;
 }
 .menu-toggle:hover { background: var(--color-primary-light); }
-.menu-toggle span { width: 20px; height: 2px; background: var(--color-primary-dark); border-radius: 2px; }
+.menu-toggle span { width: 20px; height: 2px; background: var(--color-text); border-radius: 2px; }
 
 @media (max-width: 780px) {
   .nav-desktop { display: none; }
@@ -261,13 +266,13 @@ nav { display: flex; align-items: center; gap: 0.4rem; }
    pick up the theme's CSS custom properties (they don't cascade to a teleported sibling
    of the app root the way they do to normal descendants). */
 .drawer-backdrop {
-  position: fixed; inset: 0; background: rgba(10, 30, 28, 0.5); backdrop-filter: blur(2px);
+  position: fixed; inset: 0; background: rgba(5, 4, 2, 0.6); backdrop-filter: blur(2px);
   z-index: 90;
 }
 .mobile-drawer {
   position: fixed; top: 0; right: 0; bottom: 0; z-index: 91;
   width: min(340px, 86vw); min-height: 0; height: 100%;
-  background: var(--color-surface); box-shadow: -16px 0 48px rgba(10, 30, 28, 0.22);
+  background: var(--color-surface); box-shadow: -16px 0 48px rgba(0, 0, 0, 0.4);
   overflow-y: auto;
 }
 /* The drawer only borrows .client-shell for its theme variables — it's a crisp white
@@ -280,23 +285,24 @@ nav { display: flex; align-items: center; gap: 0.4rem; }
 
 .drawer-head {
   position: relative; overflow: hidden;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  background: linear-gradient(135deg, var(--color-surface-2) 0%, var(--color-bg) 100%);
+  border-bottom: 1px solid var(--color-border-soft);
   padding: 1.35rem 1rem;
   display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem;
 }
 .drawer-head::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 70% 60% at 90% 0%, rgba(214, 138, 60, 0.4), transparent 60%);
+  background: radial-gradient(ellipse 70% 60% at 90% 0%, rgba(199, 160, 74, 0.22), transparent 60%);
 }
 .drawer-brand { position: relative; display: flex; align-items: center; gap: 0.55rem; min-width: 0; flex: 1; }
 .drawer-brand .brand-mark { width: 34px; height: 34px; flex-shrink: 0; }
 .drawer-brand .brand-mark svg { width: 100%; height: 100%; }
 .drawer-brand-copy { display: flex; flex-direction: column; min-width: 0; }
 .drawer-brand-text {
-  font-family: var(--font-display); font-weight: 700; font-size: 0.96rem; color: #fff; line-height: 1.25;
+  font-family: var(--font-display); font-weight: 600; font-size: 0.96rem; color: var(--color-text); line-height: 1.25;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.drawer-brand-tagline { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.7); }
+.drawer-brand-tagline { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-primary); }
 .drawer-close {
   position: relative; flex-shrink: 0; width: 30px; height: 30px; border-radius: 999px; border: none;
   background: rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; cursor: pointer;
@@ -318,7 +324,7 @@ nav { display: flex; align-items: center; gap: 0.4rem; }
 }
 .drawer-link-icon svg { width: 18px; height: 18px; fill: var(--color-primary); }
 .drawer-link.router-link-active .drawer-link-icon { background: var(--color-primary); }
-.drawer-link.router-link-active .drawer-link-icon svg { fill: #fff; }
+.drawer-link.router-link-active .drawer-link-icon svg { fill: #171208; }
 .drawer-link-text {
   flex: 1; font-weight: 700; font-size: 0.92rem; line-height: 1.3;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
@@ -346,20 +352,21 @@ nav { display: flex; align-items: center; gap: 0.4rem; }
 main { flex: 1; width: 100%; padding-top: 2.25rem; padding-bottom: 4rem; }
 @media (max-width: 640px) { main { padding-top: 1.5rem; padding-bottom: 2.75rem; } }
 
-.site-footer { margin-top: auto; background: var(--color-primary-dark); color: rgba(255, 255, 255, 0.82); }
+.site-footer { margin-top: auto; background: var(--color-surface); border-top: 1px solid var(--color-border-soft); color: var(--color-text-muted); }
 .footer-grid {
   display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2.5rem;
-  padding: 3rem 1.25rem 2.25rem;
+  padding: 3.5rem 1.25rem 2.25rem;
 }
-@media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; padding: 2.5rem 1.25rem 1.75rem; } }
-.footer-brand-name { font-size: 1.2rem; color: #fff; }
-.footer-tagline { margin: 0.6rem 0 0; font-size: 0.86rem; color: rgba(255, 255, 255, 0.62); max-width: 26rem; line-height: 1.6; }
-.footer-col h4 { margin: 0 0 0.85rem; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); }
-.footer-col { display: flex; flex-direction: column; gap: 0.55rem; }
-.footer-col a, .footer-col p { color: rgba(255, 255, 255, 0.82); font-size: 0.88rem; margin: 0; }
-.footer-col a:hover { color: #fff; }
+@media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; padding: 2.75rem 1.25rem 1.75rem; } }
+.footer-brand-name { font-size: 1.25rem; color: var(--color-text); }
+.footer-tagline { margin: 0.6rem 0 0; font-size: 0.86rem; color: var(--color-text-muted); max-width: 26rem; line-height: 1.7; }
+.footer-col h4 { margin: 0 0 0.85rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-primary); }
+.footer-col { display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-col a, .footer-col p { color: var(--color-text-muted); font-size: 0.88rem; margin: 0; transition: color 0.15s ease; }
+.footer-col a:hover { color: var(--color-primary); }
+.footer-divider { max-width: 1180px; margin: 0 auto; padding: 0 1.25rem; }
 .footer-bottom {
-  padding: 1.1rem 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: 0.78rem; color: rgba(255, 255, 255, 0.55);
+  padding: 1.5rem 1.25rem;
+  font-size: 0.76rem; color: var(--color-text-faint); letter-spacing: 0.02em;
 }
 </style>
